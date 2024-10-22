@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
     console.log(request)
-    const data = await fetch('http://127.0.0.1:8080/weatherforecast')
+    const data = await fetch(`${process.env.API_URL}/weatherforecast`)
     const forecast = await data.json()
 
     console.log(data)
