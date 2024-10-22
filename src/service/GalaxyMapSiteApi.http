@@ -1,0 +1,6 @@
+@GalaxyMapSiteApi_HostAddress = http://localhost:5039
+
+GET {{GalaxyMapSiteApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
