@@ -9,7 +9,7 @@ export default function Map() {
         async function fetchPlanets() {
             const data = await fetch("/api/planets")
             console.log(data);
-            let planet_list = await data.json();
+            const planet_list = await data.json();
             console.log(planet_list);
             setPlanets(planet_list);
         };
