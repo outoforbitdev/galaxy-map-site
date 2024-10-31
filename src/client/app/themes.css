@@ -1,0 +1,60 @@
+:root {
+    /* https://colordesigner.io/gradient-generator */
+    /* https://webaim.org/resources/contrastchecker/ */
+    --black-100: #1d1d1b;
+    --black-200: #404040;
+    --black-300: #757575;
+    --black-400: #a8a8a8;
+    --black-500: #d6d6d6;
+    --black-600: #ffffff;
+    --red-100: #430000;
+    --red-200: #6e0c16;
+    --red-300: #9c1d25;
+    --red-400: #cc3034;
+    --red-500: #ff4343;
+    --red-600: #ffb0b0;
+    --blue-100: #000336;
+    --blue-200: #112a5c;
+    --blue-300: #294e84;
+    --blue-400: #4175ad;
+    --blue-500: #5a9ed6;
+    --blue-600: #75caff;
+}
+
+
+
+[data-theme="OODCoreStyleThemeLight"] {
+    --background-color-primary: var(--black-600);
+    --background-color-secondary: var(--black-500);
+    --background-color-tertiary: var(--black-400);
+    --background-color-accent-primary: var(--black-100);
+    --background-color-accent-secondary: var(--black-200);
+    --background-color-error: var(--red-600);
+    --text-color-primary: var(--black-100);
+    --text-color-secondary: var(--black-100);
+    --text-color-tertiary: var(--black-100);
+    --text-color-accent-primary: var(--black-600);
+    --text-color-accent-secondary: var(--black-500);
+    --text-color-error: var(--red-300);
+    --text-color-error-with-background: var(--red-100);
+    --focus-color: var(--blue-500);
+    --link-color: var(--blue-400);
+}
+
+[data-theme="OODCoreStyleThemeDark"] {
+    --background-color-primary: var(--black-100);
+    --background-color-secondary: var(--black-200);
+    --background-color-tertiary: var(--black-300);
+    --background-color-accent-primary: var(--blue-300);
+    --background-color-accent-secondary: var(--blue-400);
+    --background-color-error: var(--red-200);
+    --text-color-primary: var(--black-400);
+    --text-color-secondary: var(--black-500);
+    --text-color-tertiary: var(--black-600);
+    --text-color-accent-primary: var(--black-500);
+    --text-color-accent-secondary: var(--black-600);
+    --text-color-error: var(--red-500);
+    --text-color-error-with-background: var(--red-300);
+    --focus-color: var(--blue-400);
+    --link-color: var(--blue-400);
+}

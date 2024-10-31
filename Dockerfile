@@ -12,8 +12,11 @@ WORKDIR /app
 
 RUN curl --silent --location https://deb.nodesource.com/setup_20.x | bash - \
 && apt-get install -y nodejs
-COPY ./src/client .
+COPY ./src/client/package-lock.json .
+COPY ./src/client/package.json .
 RUN npm install
+
+COPY ./src/client .
 RUN npm run build
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
