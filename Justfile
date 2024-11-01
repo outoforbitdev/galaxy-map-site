@@ -9,9 +9,9 @@ run: stop
 
 build: clean
     # Build image
-    docker build -t {{app_name}} .
+    docker build -t outoforbitdev/{{app_name}}:$(git rev-parse --short HEAD) .
     # Run image
-    docker run -d -p {{port}}:3000 -p {{api_port}}:8080 --name {{app_name}} {{app_name}}
+    docker run -d -p {{port}}:3000 -p {{api_port}}:8080 --name {{app_name}} outoforbitdev/{{app_name}}:$(git rev-parse --short HEAD) 
     # Wait for the server to start
     # docker container exec {{app_name}} wget http://localhost:8080 &> /dev/null
     open http://localhost:{{port}}

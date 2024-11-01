@@ -21,7 +21,6 @@ export default function Map(props: IMapProps) {
     const scale = 20;
     const centerPixel = size/2;
     const containerRef = useRef<HTMLDivElement>(null);
-    const mapRef = useRef<HTMLDivElement>(null);
     const [offsetX, setOffsetX] = useState(0);
     const [offsetY, setOffsetY] = useState(0);
 

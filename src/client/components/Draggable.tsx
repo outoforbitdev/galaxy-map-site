@@ -1,4 +1,4 @@
-import { CSSProperties, MouseEvent as ReactMouseEvent, MouseEventHandler, RefObject, TouchEvent as ReactTouchEvent, TouchEventHandler, useEffect, useRef, useState, PointerEventHandler } from "react";
+import { CSSProperties, RefObject, useEffect, useRef, useState, PointerEventHandler } from "react";
 import { IComponent } from "./IComponent";
 import styles from "./draggable.module.css"
 
@@ -12,9 +12,6 @@ export interface IPosition {
 }
 
 const defaultPosition: IPosition = {x: 0, y: 0};
-
-type ReactEvent = ReactMouseEvent<HTMLDivElement, MouseEvent> | ReactTouchEvent<HTMLDivElement>;
-type Event = MouseEvent | TouchEvent;
 
 export default function Draggable(props: IDraggableProps) {
     const draggableRef = useRef<HTMLDivElement>(null);
@@ -70,7 +67,7 @@ export default function Draggable(props: IDraggableProps) {
             document.removeEventListener("mouseup", onPointerEnd);
             document.removeEventListener("pointermove", onPointerMove);
         }
-    }, [isDragging]);
+    });
     
     const positionStyle: CSSProperties = {
         top: `${position.y}px`,
