@@ -1,3 +1,4 @@
+import Draggable from "./Draggable";
 import PlanetMap, { IPlanet } from "./PlanetMap";
 import styles from "./map.module.css"
 
@@ -21,12 +22,14 @@ export default function Map(props: IMapProps) {
 
     return(
         <div className={styles.container}>
-          <svg color="currentColor" fill="currentColor" width={sizeString} height={sizeString}>
-            {props.planets.map((p: IPlanet, _i: number) => (
-                    <PlanetMap planet={p} offset={offset} scale={scale} currentFocusLevel={1} key={p.name} />
-                ))
-            }
-          </svg>
+            <Draggable initialPosition={{x: 0, y: 0}}>
+                <svg color="currentColor" fill="currentColor" width={sizeString} height={sizeString}>
+                    {props.planets.map((p: IPlanet, _i: number) => (
+                            <PlanetMap planet={p} offset={offset} scale={scale} currentFocusLevel={1} key={p.name} />
+                        ))
+                    }
+                </svg>
+          </Draggable>
         </div>
     );
 }
