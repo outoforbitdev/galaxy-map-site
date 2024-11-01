@@ -5,8 +5,6 @@ api_port := "1799"
 run: stop
     docker build -t {{app_name}} src
     docker run -d -p {{port}}:3000 -p {{api_port}}:5039 -v ./src:/app/src --name {{app_name}} {{app_name}}
-    docker container exec {{app_name}} wget http://localhost:3000 &> /dev/null
-    docker container exec {{app_name}} wget http://localhost:5039/planets &> /dev/null
     open http://localhost:{{port}}
 
 build: clean
@@ -24,3 +22,6 @@ clean: stop
 stop:
 	-docker stop {{app_name}}
 	-docker rm {{app_name}}
+
+get-ip:
+    echo "http://$(ipconfig getifaddr en0):{{port}}"

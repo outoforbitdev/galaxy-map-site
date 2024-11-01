@@ -1,5 +1,6 @@
-import { CSSProperties, MouseEventHandler, RefObject, useEffect, useRef, useState } from "react";
+import { CSSProperties, MouseEvent as ReactMouseEvent, MouseEventHandler, RefObject, TouchEvent as ReactTouchEvent, TouchEventHandler, useEffect, useRef, useState, PointerEventHandler } from "react";
 import { IComponent } from "./IComponent";
+import styles from "./draggable.module.css"
 
 interface IDraggableProps extends IComponent {
     initialPosition: IPosition,
@@ -12,7 +13,8 @@ export interface IPosition {
 
 const defaultPosition: IPosition = {x: 0, y: 0};
 
-type MouseHandler = MouseEventHandler<HTMLDivElement>
+type ReactEvent = ReactMouseEvent<HTMLDivElement, MouseEvent> | ReactTouchEvent<HTMLDivElement>;
+type Event = MouseEvent | TouchEvent;
 
 export default function Draggable(props: IDraggableProps) {
     const draggableRef = useRef<HTMLDivElement>(null);
@@ -21,7 +23,7 @@ export default function Draggable(props: IDraggableProps) {
     const [relativePosition, setRelativePosition] = useState(defaultPosition)
     const [isDragging, setIsDragging] = useState(false);
 
-    const onMouseDown: MouseHandler = function(e) {
+    const onPointerDown: PointerEventHandler<HTMLDivElement> = function(e) {
         if (e.button != 0) return;
 
         setIsDragging(true);
@@ -40,49 +42,49 @@ export default function Draggable(props: IDraggableProps) {
         e.preventDefault();
     }
 
-    const onMouseUp = function(e: MouseEvent) {
+    const onPointerEnd = function(e: MouseEvent | TouchEvent) {
         setIsDragging(false);
 
         e.stopPropagation();
         e.preventDefault();
     }
 
-    const onMouseMove = function(e: MouseEvent) {
+    const onPointerMove = function(e: PointerEvent) {
         if (!isDragging) return;
 
         const currentPosition = {
             x: e.pageX - relativePosition.x,
             y: e.pageY - relativePosition.y,
         }
-        setPosition(currentPosition)
+        setPosition(currentPosition);
 
         e.stopPropagation();
         e.preventDefault();
     }
 
     useEffect(() => {
-        document.addEventListener("mouseup", onMouseUp);
-        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("pointerup", onPointerEnd);
+        document.addEventListener("pointermove", onPointerMove);
 
         return () => {
-            document.removeEventListener("mouseup", onMouseUp);
-            document.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener("mouseup", onPointerEnd);
+            document.removeEventListener("pointermove", onPointerMove);
         }
     }, [isDragging]);
     
-    const styles: CSSProperties = {
+    const positionStyle: CSSProperties = {
         top: `${position.y}px`,
         left: `${position.x}px`,
         position: "relative",
     }
     return (
-        <div ref={staticRef}>
+        <div ref={staticRef} className={styles.draggable}>
             <div 
                 ref={draggableRef} 
-                style={styles} 
+                style={positionStyle} 
                 className={props.className} 
                 id={props.id} 
-                onMouseDown={onMouseDown}
+                onPointerDown={onPointerDown}
             >
                 {props.children}
             </div>

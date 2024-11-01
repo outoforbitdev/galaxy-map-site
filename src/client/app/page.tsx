@@ -8,9 +8,7 @@ export default function Map() {
     useEffect(() => {
         async function fetchPlanets() {
             const data = await fetch("/api/planets")
-            console.log(data);
             const planet_list = await data.json();
-            console.log(planet_list);
             setPlanets(planet_list);
         };
         fetchPlanets();
