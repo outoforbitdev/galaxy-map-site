@@ -16,5 +16,11 @@ export default function Map() {
 
   if (!planets) return <div></div>;
 
-  return <GalaxyMap planets={planets} routes={[]} dimensions={{minX: -500, maxX: 500, minY: -500, maxY: 500}} />;
+  return (
+    <GalaxyMap
+      planets={planets}
+      routes={[]}
+      dimensions={{ minX: -500, maxX: 500, minY: -500, maxY: 500 }}
+    />
+  );
 }

@@ -14,10 +14,10 @@ interface IMapProps {
   planets: IPlanet[];
   routes: IRoute[];
   dimensions: {
-    minX: number,
-    minY: number,
-    maxX: number,
-    maxY: number,
+    minX: number;
+    minY: number;
+    maxX: number;
+    maxY: number;
   };
   initialZoom?: number;
 }
@@ -29,7 +29,7 @@ export default function Map(props: IMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
-  const [zoomLevel, setZoomLevel] = useState(props.initialZoom ?? 1)
+  const [zoomLevel, setZoomLevel] = useState(props.initialZoom ?? 1);
   const canvasWidth = mapWidth / zoomLevel;
   const canvasHeight = mapHeight / zoomLevel;
 
