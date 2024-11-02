@@ -2,6 +2,10 @@ app_name := "galaxy-map-site"
 port := "1798"
 api_port := "1799"
 
+install:
+    yarn install
+    yarn husky install
+
 run: stop
     docker build -t {{app_name}} src
     docker run -d -p {{port}}:3000 -p {{api_port}}:5039 -v ./src:/app/src --name {{app_name}} {{app_name}}
@@ -25,3 +29,6 @@ stop:
 
 get-ip:
     echo "http://$(ipconfig getifaddr en0):{{port}}"
+
+lint:
+    docker run -v $(pwd):/app -v $(pwd)/.linters:/polylint/.linters outoforbitdev/polylint:0.1.0

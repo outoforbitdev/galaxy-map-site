@@ -1,12 +1,11 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export async function GET() {
-    const status = {
-        "status": "OK",
-    }
-    
-    return new NextResponse(JSON.stringify(status), {
-      status: 200,
-    });
-  }
-  
+  const status = {
+    status: "OK",
+  };
+
+  return new NextResponse(JSON.stringify(status), {
+    status: 200,
+  });
+}

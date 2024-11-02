@@ -1,32 +1,31 @@
 .nav {
-    --header-height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: var(--header-height);
-   }
+  --header-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: var(--header-height);
+}
 
 nav.nav {
-    margin: 1rem;
-    padding: 1rem;
+  margin: 1rem;
+  padding: 1rem;
 }
 
 .nav ul {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    
+  list-style: none;
+  display: flex;
+  flex-direction: row;
 }
 
 .nav a {
-    text-decoration: none;
-    /* display: block; */
-    padding: 1rem;
-    /* vertical-align: middle; */
+  text-decoration: none;
+  /* display: block; */
+  padding: 1rem;
+  /* vertical-align: middle; */
 }
 
 .nav a:hover {
-    background-color: var(--foreground);
-    color: var(--background);
+  background-color: var(--foreground);
+  color: var(--background);
 }
