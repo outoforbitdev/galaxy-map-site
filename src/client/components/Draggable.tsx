@@ -19,11 +19,14 @@ export default function Draggable(props: IDraggableProps) {
     const [position, setPosition] = useState(props.initialPosition)
     const [relativePosition, setRelativePosition] = useState(defaultPosition)
     const [isDragging, setIsDragging] = useState(false);
+    const [pointerId, setPointerId] = useState(0)
 
     const onPointerDown: PointerEventHandler<HTMLDivElement> = function(e) {
         if (e.button != 0) return;
+        if (isDragging) return;
 
         setIsDragging(true);
+        setPointerId(e.pointerId);
         const draggablePosition = getPositionFromRef(draggableRef);
         const staticPosition = getPositionFromRef(staticRef);
         const divPosition = diffPositions(draggablePosition, staticPosition);
@@ -39,7 +42,9 @@ export default function Draggable(props: IDraggableProps) {
         e.preventDefault();
     }
 
-    const onPointerEnd = function(e: MouseEvent | TouchEvent) {
+    const onPointerEnd = function(e: PointerEvent) {
+        if (!isDragging) return;
+        if (e.pointerId != pointerId) return;
         setIsDragging(false);
 
         e.stopPropagation();
@@ -48,6 +53,7 @@ export default function Draggable(props: IDraggableProps) {
 
     const onPointerMove = function(e: PointerEvent) {
         if (!isDragging) return;
+        if (e.pointerId != pointerId) return;
 
         const currentPosition = {
             x: e.pageX - relativePosition.x,
@@ -64,7 +70,7 @@ export default function Draggable(props: IDraggableProps) {
         document.addEventListener("pointermove", onPointerMove);
 
         return () => {
-            document.removeEventListener("mouseup", onPointerEnd);
+            document.removeEventListener("pointerup", onPointerEnd);
             document.removeEventListener("pointermove", onPointerMove);
         }
     });
