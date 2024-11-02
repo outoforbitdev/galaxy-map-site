@@ -71,15 +71,15 @@ export default function Map(props: IMapProps) {
     const oldDistanceToCenter = {
       x: oldMousePixel.x - centerX,
       y: centerY - oldMousePixel.y,
-    }
+    };
     const newDistanceToCenter = {
-      x: oldDistanceToCenter.x * zoomLevel / newZoomLevel,
-      y: oldDistanceToCenter.y * zoomLevel / newZoomLevel,
-    }
+      x: (oldDistanceToCenter.x * zoomLevel) / newZoomLevel,
+      y: (oldDistanceToCenter.y * zoomLevel) / newZoomLevel,
+    };
     const newMousePixel = {
       x: newDistanceToCenter.x + centerX,
       y: centerY - newDistanceToCenter.y,
-    }
+    };
     setOffsetX(offsetX + oldMousePixel.x - newMousePixel.x);
     setOffsetY(offsetY + oldMousePixel.y - newMousePixel.y);
   };

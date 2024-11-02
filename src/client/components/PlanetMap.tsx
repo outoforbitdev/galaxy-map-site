@@ -15,8 +15,8 @@ interface IPlanetMapProps {
 
 export default function PlanetMap(props: IPlanetMapProps) {
   const planet = props.planet;
-  const x = props.centerX + (planet.x / props.zoomLevel);
-  const y = props.centerY - (planet.y / props.zoomLevel);
+  const x = props.centerX + planet.x / props.zoomLevel;
+  const y = props.centerY - planet.y / props.zoomLevel;
   const name = planet.name;
   const color = planet.color;
   const inFocus = planet.focusLevel >= props.zoomLevel;
