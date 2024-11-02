@@ -13,22 +13,31 @@ interface IRoute {
 interface IMapProps {
   planets: IPlanet[];
   routes: IRoute[];
+  dimensions: {
+    minX: number,
+    minY: number,
+    maxX: number,
+    maxY: number,
+  };
+  initialZoom?: number;
 }
 
 export default function Map(props: IMapProps) {
-  const size = 1000;
-  const sizeString = `${size}px`;
+  const mapWidth = props.dimensions.maxX - props.dimensions.minX;
+  const mapHeight = props.dimensions.maxY - props.dimensions.minY;
   const scale = 20;
-  const centerPixel = size / 2;
   const containerRef = useRef<HTMLDivElement>(null);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
+  const [zoomLevel, setZoomLevel] = useState(props.initialZoom ?? 1)
+  const canvasWidth = mapWidth / zoomLevel;
+  const canvasHeight = mapHeight / zoomLevel;
 
   useEffect(() => {
     if (containerRef.current) {
       const container = containerRef.current.getBoundingClientRect();
-      setOffsetX((container.width - size) / 2);
-      setOffsetY((container.height - size) / 2);
+      setOffsetX((container.width - canvasWidth) / 2);
+      setOffsetY((container.height - canvasHeight) / 2);
     }
   }, []);
 
@@ -43,13 +52,15 @@ export default function Map(props: IMapProps) {
           }}
           color="currentColor"
           fill="currentColor"
-          width={sizeString}
-          height={sizeString}
+          width={`${canvasWidth}px`}
+          height={`${canvasHeight}px`}
+          viewBox={`0 0 ${mapWidth} ${mapHeight}`}
         >
           {props.planets.map((p: IPlanet, _i: number) => (
             <PlanetMap
               planet={p}
-              centerPixel={centerPixel}
+              centerX={props.dimensions.minX * -1}
+              centerY={props.dimensions.maxY}
               scale={scale}
               currentFocusLevel={1}
               key={p.name}
