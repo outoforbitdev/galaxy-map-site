@@ -21,6 +21,7 @@ export default function Map() {
       planets={planets}
       routes={[]}
       dimensions={{ minX: -500, maxX: 500, minY: -500, maxY: 500 }}
+      initialZoom={1}
     />
   );
 }
