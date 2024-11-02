@@ -8,15 +8,15 @@ export interface IPlanet {
 
 interface IPlanetMapProps {
     planet: IPlanet,
-    offset: number,
+    centerPixel: number,
     scale: number,
     currentFocusLevel: number,
 }
 
 export default function PlanetMap(props: IPlanetMapProps) {
     const planet = props.planet;
-    const x = props.offset+(planet.x/props.scale);
-    const y = props.offset-(planet.y/props.scale);
+    const x = props.centerPixel+(planet.x/props.scale);
+    const y = props.centerPixel-(planet.y/props.scale);
     const name = planet.name;
     const color = planet.color;
     const inFocus = planet.focusLevel <= props.currentFocusLevel;
