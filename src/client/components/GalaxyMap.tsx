@@ -30,20 +30,20 @@ interface IGenericEvent {
 export default function Map(props: IMapProps) {
   const mapWidth = props.dimensions.maxX - props.dimensions.minX;
   const mapHeight = props.dimensions.maxY - props.dimensions.minY;
+  const centerX = props.dimensions.minX * -1;
+  const centerY = props.dimensions.maxY;
   const scale = 20;
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<SVGSVGElement>(null);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
   const [zoomLevel, setZoomLevel] = useState(props.initialZoom ?? 1);
-  const canvasWidth = mapWidth / zoomLevel;
-  const canvasHeight = mapHeight / zoomLevel;
 
   useEffect(() => {
     if (containerRef.current) {
       const container = containerRef.current.getBoundingClientRect();
-      setOffsetX((container.width - canvasWidth) / 2);
-      setOffsetY((container.height - canvasHeight) / 2);
+      setOffsetX((container.width - mapWidth) / 2);
+      setOffsetY((container.height - mapHeight) / 2);
     }
   }, []);
 
@@ -57,26 +57,33 @@ export default function Map(props: IMapProps) {
     // Set zoom level
     let newZoomLevel;
     if (scrollDistance > 0) {
-      newZoomLevel = zoomLevel * scrollDistance;
+      newZoomLevel = zoomLevel / scrollDistance;
     } else {
-      newZoomLevel = zoomLevel / (scrollDistance * -1);
+      newZoomLevel = zoomLevel * (scrollDistance * -1);
     }
     setZoomLevel(newZoomLevel);
 
     // Adjust offset to keep map centered on mouse
-    const currentMousePixel = mouseToPixel(
+    const oldMousePixel = mouseToPixel(
       event,
       mapRef.current.getBoundingClientRect(),
     );
-    const mouseCoordinate = mouseToCoordinate(
-      event,
-      mapRef.current.getBoundingClientRect(),
-      zoomLevel,
-    );
-    const newMousePixel = coordinateToPixel(mouseCoordinate, newZoomLevel);
-    setOffsetX(offsetX - (newMousePixel.x - currentMousePixel.x));
-    setOffsetY(offsetY - (newMousePixel.y - currentMousePixel.y));
+    const oldDistanceToCenter = {
+      x: oldMousePixel.x - centerX,
+      y: centerY - oldMousePixel.y,
+    }
+    const newDistanceToCenter = {
+      x: oldDistanceToCenter.x * zoomLevel / newZoomLevel,
+      y: oldDistanceToCenter.y * zoomLevel / newZoomLevel,
+    }
+    const newMousePixel = {
+      x: newDistanceToCenter.x + centerX,
+      y: centerY - newDistanceToCenter.y,
+    }
+    setOffsetX(offsetX + oldMousePixel.x - newMousePixel.x);
+    setOffsetY(offsetY + oldMousePixel.y - newMousePixel.y);
   };
+  console.log(zoomLevel);
 
   return (
     <div ref={containerRef} className={styles.container}>
@@ -89,20 +96,19 @@ export default function Map(props: IMapProps) {
           }}
           color="currentColor"
           fill="currentColor"
-          width={`${canvasWidth}px`}
-          height={`${canvasHeight}px`}
-          viewBox={`0 0 ${mapWidth} ${mapHeight}`}
+          width={`${mapWidth}px`}
+          height={`${mapHeight}px`}
+          // viewBox={`0 0 ${mapWidth} ${mapHeight}`}
           onWheel={onWheel}
           ref={mapRef}
         >
           {props.planets.map((p: IPlanet, _i: number) => (
             <PlanetMap
               planet={p}
-              centerX={props.dimensions.minX * -1}
-              centerY={props.dimensions.maxY}
-              scale={scale}
-              currentFocusLevel={1}
+              centerX={centerX}
+              centerY={centerY}
               key={p.name}
+              zoomLevel={zoomLevel}
             />
           ))}
         </svg>
@@ -118,30 +124,5 @@ function mouseToPixel(
   return {
     x: e.pageX - boundingRect.x,
     y: e.pageY - boundingRect.y,
-  };
-}
-
-function mouseToCoordinate(
-  e: IGenericEvent,
-  boundingRect: { x: number; y: number },
-  zoomLevel: number,
-) {
-  return pixelToCoordinate(mouseToPixel(e, boundingRect), zoomLevel);
-}
-
-function pixelToCoordinate(pixel: { x: number; y: number }, zoomLevel: number) {
-  return {
-    x: pixel.x * zoomLevel,
-    y: pixel.y * zoomLevel,
-  };
-}
-
-function coordinateToPixel(
-  coordinate: { x: number; y: number },
-  zoomLevel: number,
-) {
-  return {
-    x: coordinate.x / zoomLevel,
-    y: coordinate.y / zoomLevel,
   };
 }

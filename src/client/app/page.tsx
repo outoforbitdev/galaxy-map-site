@@ -20,8 +20,8 @@ export default function Map() {
     <GalaxyMap
       planets={planets}
       routes={[]}
-      dimensions={{ minX: -500, maxX: 500, minY: -500, maxY: 500 }}
-      initialZoom={1}
+      dimensions={{ minX: -12000, maxX: 12000, minY: -12000, maxY: 12000 }}
+      initialZoom={10}
     />
   );
 }
