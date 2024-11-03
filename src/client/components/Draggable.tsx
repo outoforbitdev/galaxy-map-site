@@ -33,7 +33,6 @@ export default function Draggable(props: IDraggableProps) {
     if (e.button != 0) return;
     pointerEventCache.current.push(e);
     if (pointerEventCache.current.length !== 1) return;
-    if (isDragging) return;
 
     setIsDragging(true);
     setPointerId(e.pointerId);
