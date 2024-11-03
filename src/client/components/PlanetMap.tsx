@@ -23,7 +23,7 @@ export default function PlanetMap(props: IPlanetMapProps) {
   const name = planet.name;
   const color = planet.color;
   const inFocus = planet.focusLevel >= zoomModifier;
-  const radius = inFocus ? 3 : zoomModifier - planet.focusLevel < 10 ? 2: 1;
+  const radius = inFocus ? 3 : zoomModifier - planet.focusLevel < 10 ? 2 : 1;
 
   return (
     <g fill={color} stroke={color}>

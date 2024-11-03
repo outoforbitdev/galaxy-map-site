@@ -23,7 +23,7 @@ interface IMapProps {
     initial?: number;
     min?: number;
     max?: number;
-  }
+  };
 }
 
 interface IGenericEvent {
@@ -63,7 +63,7 @@ export default function Map(props: IMapProps) {
     newZoomLevel = Math.min(newZoomLevel, props.zoom.max ?? newZoomLevel);
     newZoomLevel = Math.max(newZoomLevel, props.zoom.min ?? newZoomLevel);
     setZoomLevel(newZoomLevel);
-    
+
     const oldZoomModifier = zoomLevelToModifier(zoomLevel);
     const newZoomModifier = zoomLevelToModifier(newZoomLevel);
 
@@ -130,19 +130,17 @@ function mouseToPixel(
   };
 }
 
-export function zoomLevelToModifier(zoomLevel:number) {
+export function zoomLevelToModifier(zoomLevel: number) {
   let zoomModifier;
   if (zoomLevel == 0) {
     // No zoom
     zoomModifier = 1;
-  }
-  else if (zoomLevel > 0) {
+  } else if (zoomLevel > 0) {
     // Zoom out
     zoomModifier = (10 + zoomLevel) / 10;
-  }
-  else {
+  } else {
     // Zoom in
-    zoomModifier = 1 + (zoomLevel / 100);
+    zoomModifier = 1 + zoomLevel / 100;
   }
   console.log(`level: ${zoomLevel}, modifier: ${zoomModifier}`);
   return zoomModifier;
