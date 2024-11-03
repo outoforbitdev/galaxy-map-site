@@ -1,4 +1,11 @@
-import { TouchEvent as ReactPointerEvent, useEffect, useRef, useState, WheelEventHandler, TouchEventHandler } from "react";
+import {
+  TouchEvent as ReactPointerEvent,
+  useEffect,
+  useRef,
+  useState,
+  WheelEventHandler,
+  TouchEventHandler,
+} from "react";
 import Draggable from "./Draggable";
 import PlanetMap, { IPlanet } from "./PlanetMap";
 import styles from "./map.module.css";
@@ -55,31 +62,34 @@ export default function Map(props: IMapProps) {
 
   const onPointerDown: TouchEventHandler<SVGElement> = function (e) {
     if (e.touches.length !== 2) return;
-    previousPointerDiff.current = Math.abs(e.touches[0].pageX - e.touches[1].pageX);
-  }
+    previousPointerDiff.current = Math.abs(
+      e.touches[0].pageX - e.touches[1].pageX,
+    );
+  };
 
   const onPointerMove: TouchEventHandler<SVGElement> = function (event) {
     if (event.touches.length !== 2) return;
-    const currentDiff = Math.abs(event.touches[0].pageX - event.touches[1].pageX);
+    const currentDiff = Math.abs(
+      event.touches[0].pageX - event.touches[1].pageX,
+    );
     const pointerCenter = {
       pageX: (event.touches[0].pageX + event.touches[1].pageX) / 2,
-      pageY: (event.touches[0].pageY + event.touches[1].pageY) / 2, 
-    }
+      pageY: (event.touches[0].pageY + event.touches[1].pageY) / 2,
+    };
     if (previousPointerDiff.current > 0) {
       const scaleConstant = 5;
-      if (currentDiff > previousPointerDiff.current){
+      if (currentDiff > previousPointerDiff.current) {
         adjustZoom(-scaleConstant, pointerCenter);
-      }
-      else if (currentDiff < previousPointerDiff.current) {
+      } else if (currentDiff < previousPointerDiff.current) {
         adjustZoom(scaleConstant, pointerCenter);
       }
     }
     previousPointerDiff.current = currentDiff;
-  }
+  };
 
   const onPointerUp: TouchEventHandler<SVGElement> = function (event) {
     previousPointerDiff.current = -1;
-  }
+  };
 
   const onWheel: WheelEventHandler<SVGElement> = function (e) {
     adjustZoom(e.deltaY * 0.2, e);
@@ -102,7 +112,13 @@ export default function Map(props: IMapProps) {
       event,
       mapRef.current.getBoundingClientRect(),
     );
-    const newMousePixel = calculateNewMousePixel(oldMousePixel, centerX, centerY, oldZoomModifier, newZoomModifier);
+    const newMousePixel = calculateNewMousePixel(
+      oldMousePixel,
+      centerX,
+      centerY,
+      oldZoomModifier,
+      newZoomModifier,
+    );
     setOffsetX(offsetX + oldMousePixel.x - newMousePixel.x);
     setOffsetY(offsetY + oldMousePixel.y - newMousePixel.y);
   };
@@ -167,7 +183,13 @@ export function zoomLevelToModifier(zoomLevel: number) {
   return zoomModifier;
 }
 
-function calculateNewMousePixel(oldMousePixel: {x: number, y: number}, centerX: number, centerY: number, oldZoomModifier: number, newZoomModifier: number) {
+function calculateNewMousePixel(
+  oldMousePixel: { x: number; y: number },
+  centerX: number,
+  centerY: number,
+  oldZoomModifier: number,
+  newZoomModifier: number,
+) {
   const oldDistanceToCenter = {
     x: oldMousePixel.x - centerX,
     y: centerY - oldMousePixel.y,

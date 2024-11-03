@@ -27,7 +27,7 @@ export default function Draggable(props: IDraggableProps) {
   const [relativePosition, setRelativePosition] = useState(defaultPosition);
   const [isDragging, setIsDragging] = useState(false);
   const [pointerId, setPointerId] = useState(0);
-  const pointerEventCache = useRef<PointerEvent<HTMLDivElement>[]>([])
+  const pointerEventCache = useRef<PointerEvent<HTMLDivElement>[]>([]);
 
   const onPointerDown: PointerEventHandler<HTMLDivElement> = function (e) {
     if (e.button != 0) return;
@@ -53,7 +53,9 @@ export default function Draggable(props: IDraggableProps) {
   };
 
   const onPointerEnd: PointerEventHandler<HTMLDivElement> = function (e) {
-    pointerEventCache.current = pointerEventCache.current.filter(cached => cached.pointerId !== e.pointerId);
+    pointerEventCache.current = pointerEventCache.current.filter(
+      (cached) => cached.pointerId !== e.pointerId,
+    );
     if (pointerEventCache.current.length !== 0) return;
     if (!isDragging) return;
     if (e.pointerId != pointerId) return;
@@ -84,10 +86,13 @@ export default function Draggable(props: IDraggableProps) {
     position: "relative",
   };
   return (
-    <div ref={staticRef} className={styles.draggable}
-    onPointerDown={onPointerDown}
-    onPointerMove={onPointerMove}
-    onPointerUp={onPointerEnd}>
+    <div
+      ref={staticRef}
+      className={styles.draggable}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerEnd}
+    >
       <div
         ref={draggableRef}
         style={positionStyle}
