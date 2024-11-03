@@ -1,5 +1,4 @@
 import {
-  TouchEvent as ReactPointerEvent,
   useEffect,
   useRef,
   useState,
@@ -9,17 +8,11 @@ import {
 import Draggable from "./Draggable";
 import PlanetMap, { IPlanet } from "./PlanetMap";
 import styles from "./map.module.css";
-
-interface IRoute {
-  xone: number;
-  yone: number;
-  xtwo: number;
-  ytwo: number;
-}
+import SpacelaneMap, { ISpacelane } from "./SpacelaneMap";
 
 interface IMapProps {
   planets: IPlanet[];
-  routes: IRoute[];
+  spacelanes: ISpacelane[];
   dimensions: {
     minX: number;
     minY: number;
@@ -140,6 +133,15 @@ export default function Map(props: IMapProps) {
           onTouchMove={onPointerMove}
           onTouchEnd={onPointerUp}
         >
+        {props.spacelanes.map((s:ISpacelane, _i: number) => (
+          <SpacelaneMap
+            spacelane={s}
+            centerX={centerX}
+            centerY={centerY}
+            key={_i}
+            zoomLevel={zoomLevel}
+          />
+        ))}
           {props.planets.map((p: IPlanet, _i: number) => (
             <PlanetMap
               planet={p}
@@ -177,6 +179,7 @@ export function zoomLevelToModifier(zoomLevel: number) {
     // Zoom in
     zoomModifier = 1 + zoomLevel / 100;
   }
+  console.log(`${zoomLevel} : ${zoomModifier}`)
   return zoomModifier;
 }
 
