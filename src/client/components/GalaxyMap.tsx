@@ -179,7 +179,6 @@ export function zoomLevelToModifier(zoomLevel: number) {
     // Zoom in
     zoomModifier = 1 + zoomLevel / 100;
   }
-  console.log(`${zoomLevel} : ${zoomModifier}`);
   return zoomModifier;
 }
 

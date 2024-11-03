@@ -32,7 +32,6 @@ export default function SpacelaneMap(props: ISpacelaneMapProps) {
     : zoomModifier - spacelane.focusLevel < 10
       ? 1
       : 0;
-  console.log(`${name}: ${xOne}, ${yOne} : ${xTwo}, ${yTwo}`);
 
   return (
     <g fill={color} stroke={color}>

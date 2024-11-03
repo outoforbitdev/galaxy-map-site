@@ -27,7 +27,6 @@ export default function Map() {
     <GalaxyMap
       planets={planets}
       spacelanes={spacelanes}
-      routes={[]}
       dimensions={{ minX: -12000, maxX: 12000, minY: -12000, maxY: 12000 }}
       zoom={{ initial: 80, min: 0 }}
     />
