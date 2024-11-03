@@ -1,3 +1,5 @@
+import { zoomLevelToModifier } from "./GalaxyMap";
+
 export interface IPlanet {
   name: string;
   x: number;
@@ -8,19 +10,20 @@ export interface IPlanet {
 
 interface IPlanetMapProps {
   planet: IPlanet;
-  centerPixel: number;
-  scale: number;
-  currentFocusLevel: number;
+  centerX: number;
+  centerY: number;
+  zoomLevel: number;
 }
 
 export default function PlanetMap(props: IPlanetMapProps) {
+  const zoomModifier = zoomLevelToModifier(props.zoomLevel);
   const planet = props.planet;
-  const x = props.centerPixel + planet.x / props.scale;
-  const y = props.centerPixel - planet.y / props.scale;
+  const x = props.centerX + planet.x / zoomModifier;
+  const y = props.centerY - planet.y / zoomModifier;
   const name = planet.name;
   const color = planet.color;
-  const inFocus = planet.focusLevel <= props.currentFocusLevel;
-  const radius = inFocus ? 3 : 2;
+  const inFocus = planet.focusLevel >= zoomModifier;
+  const radius = inFocus ? 3 : zoomModifier - planet.focusLevel < 10 ? 2 : 1;
 
   return (
     <g fill={color} stroke={color}>

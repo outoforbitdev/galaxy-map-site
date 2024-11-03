@@ -3,5 +3,6 @@ div.container {
   width: 100vw;
   max-width: 100%;
   max-height: 100vh;
+  height: 74vh;
   border: 1px solid var(--foreground);
 }
