@@ -27,12 +27,16 @@ export default function SpacelaneMap(props: ISpacelaneMapProps) {
   const name = spacelane.name;
   const color = spacelane.color;
   const inFocus = spacelane.focusLevel >= zoomModifier;
-  const strokeWidth = inFocus ? 3 : zoomModifier - spacelane.focusLevel < 10 ? 1 : 0;
-  console.log(`${name}: ${xOne}, ${yOne} : ${xTwo}, ${yTwo}`)
+  const strokeWidth = inFocus
+    ? 3
+    : zoomModifier - spacelane.focusLevel < 10
+      ? 1
+      : 0;
+  console.log(`${name}: ${xOne}, ${yOne} : ${xTwo}, ${yTwo}`);
 
   return (
     <g fill={color} stroke={color}>
-        <line x1={xOne} y1={yOne} x2={xTwo} y2={yTwo} strokeWidth={strokeWidth} />
+      <line x1={xOne} y1={yOne} x2={xTwo} y2={yTwo} strokeWidth={strokeWidth} />
     </g>
   );
 }

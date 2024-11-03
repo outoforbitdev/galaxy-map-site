@@ -133,15 +133,15 @@ export default function Map(props: IMapProps) {
           onTouchMove={onPointerMove}
           onTouchEnd={onPointerUp}
         >
-        {props.spacelanes.map((s:ISpacelane, _i: number) => (
-          <SpacelaneMap
-            spacelane={s}
-            centerX={centerX}
-            centerY={centerY}
-            key={_i}
-            zoomLevel={zoomLevel}
-          />
-        ))}
+          {props.spacelanes.map((s: ISpacelane, _i: number) => (
+            <SpacelaneMap
+              spacelane={s}
+              centerX={centerX}
+              centerY={centerY}
+              key={_i}
+              zoomLevel={zoomLevel}
+            />
+          ))}
           {props.planets.map((p: IPlanet, _i: number) => (
             <PlanetMap
               planet={p}
@@ -179,7 +179,7 @@ export function zoomLevelToModifier(zoomLevel: number) {
     // Zoom in
     zoomModifier = 1 + zoomLevel / 100;
   }
-  console.log(`${zoomLevel} : ${zoomModifier}`)
+  console.log(`${zoomLevel} : ${zoomModifier}`);
   return zoomModifier;
 }
 
