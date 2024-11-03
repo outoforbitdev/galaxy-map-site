@@ -31,7 +31,7 @@ public class PlanetsController : ControllerBase
     [HttpGet(Name = "GetPlanets")]
     public IEnumerable<Planet> Get()
     {
-        planetList.Sort((a, b) => a.FocusLevel - b.FocusLevel);
+        // planetList.Sort((a, b) => a.FocusLevel - b.FocusLevel);
         return planetList.ToArray();
     }
 

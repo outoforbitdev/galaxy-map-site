@@ -1,9 +1,9 @@
 import {
   CSSProperties,
   RefObject,
-  useEffect,
   useRef,
   useState,
+  PointerEvent,
   PointerEventHandler,
 } from "react";
 import { IComponent } from "./IComponent";
@@ -27,9 +27,12 @@ export default function Draggable(props: IDraggableProps) {
   const [relativePosition, setRelativePosition] = useState(defaultPosition);
   const [isDragging, setIsDragging] = useState(false);
   const [pointerId, setPointerId] = useState(0);
+  const pointerEventCache = useRef<PointerEvent<HTMLDivElement>[]>([])
 
   const onPointerDown: PointerEventHandler<HTMLDivElement> = function (e) {
     if (e.button != 0) return;
+    pointerEventCache.current.push(e);
+    if (pointerEventCache.current.length !== 1) return;
     if (isDragging) return;
 
     setIsDragging(true);
@@ -49,7 +52,9 @@ export default function Draggable(props: IDraggableProps) {
     e.preventDefault();
   };
 
-  const onPointerEnd = function (e: PointerEvent) {
+  const onPointerEnd: PointerEventHandler<HTMLDivElement> = function (e) {
+    pointerEventCache.current = pointerEventCache.current.filter(cached => cached.pointerId !== e.pointerId);
+    if (pointerEventCache.current.length !== 0) return;
     if (!isDragging) return;
     if (e.pointerId != pointerId) return;
     setIsDragging(false);
@@ -58,7 +63,8 @@ export default function Draggable(props: IDraggableProps) {
     e.preventDefault();
   };
 
-  const onPointerMove = function (e: PointerEvent) {
+  const onPointerMove: PointerEventHandler<HTMLDivElement> = function (e) {
+    if (pointerEventCache.current.length !== 1) return;
     if (!isDragging) return;
     if (e.pointerId != pointerId) return;
 
@@ -72,29 +78,21 @@ export default function Draggable(props: IDraggableProps) {
     e.preventDefault();
   };
 
-  useEffect(() => {
-    document.addEventListener("pointerup", onPointerEnd);
-    document.addEventListener("pointermove", onPointerMove);
-
-    return () => {
-      document.removeEventListener("pointerup", onPointerEnd);
-      document.removeEventListener("pointermove", onPointerMove);
-    };
-  });
-
   const positionStyle: CSSProperties = {
     top: `${position.y}px`,
     left: `${position.x}px`,
     position: "relative",
   };
   return (
-    <div ref={staticRef} className={styles.draggable}>
+    <div ref={staticRef} className={styles.draggable}
+    onPointerDown={onPointerDown}
+    onPointerMove={onPointerMove}
+    onPointerUp={onPointerEnd}>
       <div
         ref={draggableRef}
         style={positionStyle}
         className={props.className}
         id={props.id}
-        onPointerDown={onPointerDown}
       >
         {props.children}
       </div>

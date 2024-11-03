@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, WheelEventHandler } from "react";
+import { TouchEvent as ReactPointerEvent, useEffect, useRef, useState, WheelEventHandler, TouchEventHandler } from "react";
 import Draggable from "./Draggable";
 import PlanetMap, { IPlanet } from "./PlanetMap";
 import styles from "./map.module.css";
@@ -31,17 +31,19 @@ interface IGenericEvent {
   pageY: number;
 }
 
+type SVGPointerEvent = ReactPointerEvent<SVGElement> | TouchEvent;
+
 export default function Map(props: IMapProps) {
   const mapWidth = props.dimensions.maxX - props.dimensions.minX;
   const mapHeight = props.dimensions.maxY - props.dimensions.minY;
   const centerX = props.dimensions.minX * -1;
   const centerY = props.dimensions.maxY;
-  const scale = 20;
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<SVGSVGElement>(null);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
   const [zoomLevel, setZoomLevel] = useState(props.zoom.initial ?? 1);
+  const previousPointerDiff = useRef(-1);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -50,6 +52,34 @@ export default function Map(props: IMapProps) {
       setOffsetY((container.height - mapHeight) / 2);
     }
   }, []);
+
+  const onPointerDown: TouchEventHandler<SVGElement> = function (e) {
+    if (e.touches.length !== 2) return;
+    previousPointerDiff.current = Math.abs(e.touches[0].pageX - e.touches[1].pageX);
+  }
+
+  const onPointerMove: TouchEventHandler<SVGElement> = function (event) {
+    if (event.touches.length !== 2) return;
+    const currentDiff = Math.abs(event.touches[0].pageX - event.touches[1].pageX);
+    const pointerCenter = {
+      pageX: (event.touches[0].pageX + event.touches[1].pageX) / 2,
+      pageY: (event.touches[0].pageY + event.touches[1].pageY) / 2, 
+    }
+    if (previousPointerDiff.current > 0) {
+      const scaleConstant = 5;
+      if (currentDiff > previousPointerDiff.current){
+        adjustZoom(-scaleConstant, pointerCenter);
+      }
+      else if (currentDiff < previousPointerDiff.current) {
+        adjustZoom(scaleConstant, pointerCenter);
+      }
+    }
+    previousPointerDiff.current = currentDiff;
+  }
+
+  const onPointerUp: TouchEventHandler<SVGElement> = function (event) {
+    previousPointerDiff.current = -1;
+  }
 
   const onWheel: WheelEventHandler<SVGElement> = function (e) {
     adjustZoom(e.deltaY * 0.2, e);
@@ -72,18 +102,7 @@ export default function Map(props: IMapProps) {
       event,
       mapRef.current.getBoundingClientRect(),
     );
-    const oldDistanceToCenter = {
-      x: oldMousePixel.x - centerX,
-      y: centerY - oldMousePixel.y,
-    };
-    const newDistanceToCenter = {
-      x: (oldDistanceToCenter.x * oldZoomModifier) / newZoomModifier,
-      y: (oldDistanceToCenter.y * oldZoomModifier) / newZoomModifier,
-    };
-    const newMousePixel = {
-      x: newDistanceToCenter.x + centerX,
-      y: centerY - newDistanceToCenter.y,
-    };
+    const newMousePixel = calculateNewMousePixel(oldMousePixel, centerX, centerY, oldZoomModifier, newZoomModifier);
     setOffsetX(offsetX + oldMousePixel.x - newMousePixel.x);
     setOffsetY(offsetY + oldMousePixel.y - newMousePixel.y);
   };
@@ -101,9 +120,11 @@ export default function Map(props: IMapProps) {
           fill="currentColor"
           width={`${mapWidth}px`}
           height={`${mapHeight}px`}
-          // viewBox={`0 0 ${mapWidth} ${mapHeight}`}
           onWheel={onWheel}
           ref={mapRef}
+          onTouchStart={onPointerDown}
+          onTouchMove={onPointerMove}
+          onTouchEnd={onPointerUp}
         >
           {props.planets.map((p: IPlanet, _i: number) => (
             <PlanetMap
@@ -132,7 +153,7 @@ function mouseToPixel(
 
 export function zoomLevelToModifier(zoomLevel: number) {
   let zoomModifier;
-  if (zoomLevel == 0) {
+  if (zoomLevel === 0) {
     // No zoom
     zoomModifier = 1;
   } else if (zoomLevel > 0) {
@@ -144,4 +165,20 @@ export function zoomLevelToModifier(zoomLevel: number) {
   }
   console.log(`level: ${zoomLevel}, modifier: ${zoomModifier}`);
   return zoomModifier;
+}
+
+function calculateNewMousePixel(oldMousePixel: {x: number, y: number}, centerX: number, centerY: number, oldZoomModifier: number, newZoomModifier: number) {
+  const oldDistanceToCenter = {
+    x: oldMousePixel.x - centerX,
+    y: centerY - oldMousePixel.y,
+  };
+  const newDistanceToCenter = {
+    x: (oldDistanceToCenter.x * oldZoomModifier) / newZoomModifier,
+    y: (oldDistanceToCenter.y * oldZoomModifier) / newZoomModifier,
+  };
+  const newMousePixel = {
+    x: newDistanceToCenter.x + centerX,
+    y: centerY - newDistanceToCenter.y,
+  };
+  return newMousePixel;
 }
