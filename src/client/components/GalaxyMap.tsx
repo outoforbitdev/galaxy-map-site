@@ -38,8 +38,6 @@ interface IGenericEvent {
   pageY: number;
 }
 
-type SVGPointerEvent = ReactPointerEvent<SVGElement> | TouchEvent;
-
 export default function Map(props: IMapProps) {
   const mapWidth = props.dimensions.maxX - props.dimensions.minX;
   const mapHeight = props.dimensions.maxY - props.dimensions.minY;
@@ -87,7 +85,7 @@ export default function Map(props: IMapProps) {
     previousPointerDiff.current = currentDiff;
   };
 
-  const onPointerUp: TouchEventHandler<SVGElement> = function (event) {
+  const onPointerUp: TouchEventHandler<SVGElement> = function (_event) {
     previousPointerDiff.current = -1;
   };
 
