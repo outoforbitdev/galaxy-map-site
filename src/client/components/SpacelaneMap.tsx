@@ -24,7 +24,6 @@ export default function SpacelaneMap(props: ISpacelaneMapProps) {
   const yOne = props.centerY - spacelane.yOne / zoomModifier;
   const xTwo = props.centerX + spacelane.xTwo / zoomModifier;
   const yTwo = props.centerY - spacelane.yTwo / zoomModifier;
-  const name = spacelane.name;
   const color = spacelane.color;
   const inFocus = spacelane.focusLevel >= zoomModifier;
   const strokeWidth = inFocus

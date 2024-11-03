@@ -49,7 +49,7 @@ export default function Map(props: IMapProps) {
       setOffsetX((container.width - mapWidth) / 2);
       setOffsetY((container.height - mapHeight) / 2);
     }
-  }, []);
+  });
 
   const onPointerDown: TouchEventHandler<SVGElement> = function (e) {
     if (e.touches.length !== 2) return;
