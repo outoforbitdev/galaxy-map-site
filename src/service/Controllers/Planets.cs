@@ -31,6 +31,7 @@ public class PlanetsController : ControllerBase
     [HttpGet(Name = "GetPlanets")]
     public IEnumerable<Planet> Get()
     {
+        planetList.Sort((a, b) => a.FocusLevel - b.FocusLevel);
         return planetList.ToArray();
     }
 
@@ -48,10 +49,10 @@ public class PlanetsController : ControllerBase
         new Planet("Capital",0,0, "green", 100),
         new Planet("Swamp",1641,-9516, "orange", 5),
         new Planet("Witchaven",3156,3625, "saddlebrown", 5),
-        new Planet("Blue Trade Core",1563,-1891, "orange", 5),
+        new Planet("Blue Trade Core",1563,-1891, "orange", 1),
         new Planet("PMC",1563,-8297, "green", 5),
         new Planet("Jungle",6813,3781, "orange", 5),
-        new Planet("Artic",-953,-8609, "orange", 5),
+        new Planet("Artic",-953,-8609, "orange", 1),
         new Planet("Shipyard Prime",1859,-578, "green", 10),
         new Planet("Campaign",5359,5938, "pink", 5),
         new Planet("Zillow",2078,-6828, "orange", 5),

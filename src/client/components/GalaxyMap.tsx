@@ -19,7 +19,11 @@ interface IMapProps {
     maxX: number;
     maxY: number;
   };
-  initialZoom?: number;
+  zoom: {
+    initial?: number;
+    min?: number;
+    max?: number;
+  }
 }
 
 interface IGenericEvent {
@@ -37,7 +41,7 @@ export default function Map(props: IMapProps) {
   const mapRef = useRef<SVGSVGElement>(null);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
-  const [zoomLevel, setZoomLevel] = useState(props.initialZoom ?? 1);
+  const [zoomLevel, setZoomLevel] = useState(props.zoom.initial ?? 1);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -48,20 +52,20 @@ export default function Map(props: IMapProps) {
   }, []);
 
   const onWheel: WheelEventHandler<SVGElement> = function (e) {
-    adjustZoom(e.deltaY * 0.1, e);
+    adjustZoom(e.deltaY * 0.2, e);
   };
 
   const adjustZoom = function (scrollDistance: number, event: IGenericEvent) {
     if (!mapRef.current) return;
 
     // Set zoom level
-    let newZoomLevel;
-    if (scrollDistance > 0) {
-      newZoomLevel = zoomLevel / scrollDistance;
-    } else {
-      newZoomLevel = zoomLevel * (scrollDistance * -1);
-    }
+    let newZoomLevel = zoomLevel + scrollDistance;
+    newZoomLevel = Math.min(newZoomLevel, props.zoom.max ?? newZoomLevel);
+    newZoomLevel = Math.max(newZoomLevel, props.zoom.min ?? newZoomLevel);
     setZoomLevel(newZoomLevel);
+    
+    const oldZoomModifier = zoomLevelToModifier(zoomLevel);
+    const newZoomModifier = zoomLevelToModifier(newZoomLevel);
 
     // Adjust offset to keep map centered on mouse
     const oldMousePixel = mouseToPixel(
@@ -73,8 +77,8 @@ export default function Map(props: IMapProps) {
       y: centerY - oldMousePixel.y,
     };
     const newDistanceToCenter = {
-      x: (oldDistanceToCenter.x * zoomLevel) / newZoomLevel,
-      y: (oldDistanceToCenter.y * zoomLevel) / newZoomLevel,
+      x: (oldDistanceToCenter.x * oldZoomModifier) / newZoomModifier,
+      y: (oldDistanceToCenter.y * oldZoomModifier) / newZoomModifier,
     };
     const newMousePixel = {
       x: newDistanceToCenter.x + centerX,
@@ -83,7 +87,6 @@ export default function Map(props: IMapProps) {
     setOffsetX(offsetX + oldMousePixel.x - newMousePixel.x);
     setOffsetY(offsetY + oldMousePixel.y - newMousePixel.y);
   };
-  console.log(zoomLevel);
 
   return (
     <div ref={containerRef} className={styles.container}>
@@ -107,7 +110,7 @@ export default function Map(props: IMapProps) {
               planet={p}
               centerX={centerX}
               centerY={centerY}
-              key={p.name}
+              key={_i}
               zoomLevel={zoomLevel}
             />
           ))}
@@ -125,4 +128,22 @@ function mouseToPixel(
     x: e.pageX - boundingRect.x,
     y: e.pageY - boundingRect.y,
   };
+}
+
+export function zoomLevelToModifier(zoomLevel:number) {
+  let zoomModifier;
+  if (zoomLevel == 0) {
+    // No zoom
+    zoomModifier = 1;
+  }
+  else if (zoomLevel > 0) {
+    // Zoom out
+    zoomModifier = (10 + zoomLevel) / 10;
+  }
+  else {
+    // Zoom in
+    zoomModifier = 1 + (zoomLevel / 100);
+  }
+  console.log(`level: ${zoomLevel}, modifier: ${zoomModifier}`);
+  return zoomModifier;
 }
