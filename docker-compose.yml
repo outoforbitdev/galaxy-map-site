@@ -1,0 +1,15 @@
+name: app-galaxy-map
+
+services:
+  app:
+    build: ./src
+    ports:
+      - "1798:3000"
+    volumes:
+      - ./src:/app/src
+  db:
+    image: "postgres:17.0-bookworm"
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./db:/data/db
