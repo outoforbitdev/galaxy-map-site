@@ -10,6 +10,7 @@ public class Spacelane {
     public string OriginId { get; set; }
     public System Destination { get; set; } = null!;
     public string DestinationId { get; set; }
+    public int Focus { get; set; }
     #endregion Properties
     #region Constructors
     public Spacelane(string name, string originId, string destinationId) {

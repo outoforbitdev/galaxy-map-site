@@ -14,7 +14,7 @@ public struct System {
         X = system.Coordinates.X;
         Y = system.Coordinates.Y;
         Color = "white";
-        FocusLevel = (10 - system.Focus) * 10;
+        FocusLevel = (10 - system.Focus) * 10 + 1;
     }
     #endregion Constructors
 }

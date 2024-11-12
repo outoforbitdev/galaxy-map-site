@@ -18,7 +18,7 @@ public struct Spacelane{
         XTwo = spacelane.Destination.Coordinates.X;
         YTwo = spacelane.Destination.Coordinates.Y;
         Color = "white";
-        FocusLevel = 80;
+        FocusLevel = (10 - spacelane.Focus) * 10 + 1;
     }
     #endregion Constructors
 }
