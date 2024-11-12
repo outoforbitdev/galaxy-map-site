@@ -9,9 +9,7 @@ install:
     echo "yarn commitlint --edit \$1 --config ./.linters/config/commitlint.config.js" > .husky/commit-msg
     echo "just lint" > .husky/pre-commit
 
-run: stop
-    # docker build -t {{app_name}} src
-    # docker run -d -p {{port}}:3000 -p {{api_port}}:5039 -v ./src:/app/src --name {{app_name}} {{app_name}}
+run:
     docker compose up -d --build
     open http://localhost:{{port}}
 

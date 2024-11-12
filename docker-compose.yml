@@ -3,6 +3,8 @@ name: app-galaxy-map
 services:
   app:
     build: ./src
+    environment:
+      "ConnectionStrings:GalaxyMapContext": Host=app-galaxy-map-db-1;Port=5432;Userid=app_galaxy_map_user;Password=password;Database=galaxy
     ports:
       - "1798:3000"
     volumes:

@@ -26,6 +26,17 @@ You can explore the `Justfile` to see all available commands.
 
 1. Use `just run` to start up the local application. This will use `./docker-compose.yml` to start up the server and the database. The frontend will be available on http://localhost:1798.
 
+1. If necessary, create the database and application user:
+    ```
+    docker exec -it app-galaxy-map-db-1 bash
+    su postgres
+    psql
+    CREATE DATABASE galaxy;
+    \c galaxy;
+    CREATE USER app_galaxy_map_user WITH PASSWORD 'password';
+    GRANT SELECT ON ALL TABLES IN SCHEMA public TO app_galaxy_map_user;
+    ```
+
 1. At this point the database will not have the necessary schema or data. Generate SQL from the migrations to generate the schema: 
     ```
     dotnet ef migrations script --idempotent
@@ -37,13 +48,14 @@ You can explore the `Justfile` to see all available commands.
     psql
     \c test
     <PASTE SQL HERE>
+    GRANT SELECT ON ALL TABLES IN SCHEMA public TO app_galaxy_map_user;
     ```
 1. To add data to the database, either do it one at a time with SQL commands or upload CSV. If uploading CSV, place it in `./db/` which is mounted on the database container.
 1. To upload to the database, run the following sql (truncating tables if necessary):
     ```
-    TRUNCATE "Systems" CASCADE;
-    COPY "Systems" FROM /data/db/Systems.csv DELIMITER ',' HEADER;
-    COPY "Spacelanes" FROM /data/db/Spacelanes.csv DELIMITER ',' HEADER;
+    TRUNCATE solar_systems CASCADE;
+    COPY solar_systems FROM '/data/db/Systems - Export.csv' DELIMITER ',' HEADER;
+    COPY spacelanes FROM '/data/db/Coordinates - SpacelanesExport.csv' DELIMITER ',' HEADER;
     ```
 
 ## Creating a migration

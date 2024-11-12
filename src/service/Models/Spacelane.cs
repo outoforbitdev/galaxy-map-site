@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GalaxyMapSiteApi.Models;
 
+[Table("spacelanes")]
 public class Spacelane {
     #region Properties
     public string Name { get; set; }
