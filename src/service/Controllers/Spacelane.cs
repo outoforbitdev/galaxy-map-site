@@ -8,10 +8,10 @@ namespace GalaxyMapSiteApi.Controllers;
 [Route("[controller]")]
 public class SpacelanesController : ControllerBase
 {
-    private readonly SystemContext _context;
+    private readonly GalaxyMapContext _context;
     private readonly ILogger<SpacelanesController> _logger;
 
-    public SpacelanesController(ILogger<SpacelanesController> logger, SystemContext context)
+    public SpacelanesController(ILogger<SpacelanesController> logger, GalaxyMapContext context)
     {
         _logger = logger;
         _context = context;

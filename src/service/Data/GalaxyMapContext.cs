@@ -2,8 +2,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GalaxyMapSiteApi.Data;
 
-public class SystemContext : DbContext {
-    public SystemContext(DbContextOptions<SystemContext> options) : base(options) { }
+public class GalaxyMapContext : DbContext {
+    public GalaxyMapContext(DbContextOptions<GalaxyMapContext> options) : base(options) { }
     public DbSet<Models.System> Systems { get; set;}
     public DbSet<Models.Spacelane> Spacelanes { get; set;}
 

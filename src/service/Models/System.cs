@@ -15,6 +15,9 @@ public class System {
         get { return Coordinates.Y; }
         set { Coordinates = new Coordinates(){ X = Coordinates.X, Y = value }; }
     }
+    // public string Sector { get; set; }
+    // public string Region { get; set; }
+    // public ICollection<Spacelane> Spacelanes{ get; set; } = new List<Spacelane>();
     #endregion Properties
     #region Constructors
     public System(string name, Coordinates coordinates) {

@@ -23,10 +23,10 @@ public struct Planet{
 [Route("[controller]")]
 public class PlanetsController : ControllerBase
 {
-    private readonly SystemContext _context;
+    private readonly GalaxyMapContext _context;
     private readonly ILogger<PlanetsController> _logger;
 
-    public PlanetsController(ILogger<PlanetsController> logger, SystemContext context)
+    public PlanetsController(ILogger<PlanetsController> logger, GalaxyMapContext context)
     {
         _logger = logger;
         _context = context;

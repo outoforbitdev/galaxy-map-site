@@ -8,8 +8,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<SystemContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("SystemsContext")));
+builder.Services.AddDbContext<GalaxyMapContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("GalaxyMapContext")));
 
 var app = builder.Build();
 
@@ -24,7 +24,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    var context = services.GetRequiredService<SystemContext>();
+    var context = services.GetRequiredService<GalaxyMapContext>();
     context.Database.EnsureCreated();
     // DbInitializer.Initialize(context);
 }
