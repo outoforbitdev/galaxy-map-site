@@ -1,7 +1,7 @@
 "use client";
 
 import GalaxyMap from "@/components/GalaxyMap";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 export default function Map() {
   const [planets, setPlanets] = useState(null);
@@ -24,11 +24,14 @@ export default function Map() {
   if (!planets || !spacelanes) return <div></div>;
 
   return (
+    <Fragment>
     <GalaxyMap
       planets={planets}
       spacelanes={spacelanes}
       dimensions={{ minX: -12000, maxX: 12000, minY: -12000, maxY: 12000 }}
       zoom={{ initial: 80, min: 0 }}
     />
+    <p>Star Wars and all associated names are copyright Lucasfilm and Disney</p>
+    </Fragment>
   );
 }
