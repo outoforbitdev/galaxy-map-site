@@ -25,13 +25,15 @@ export default function Map() {
 
   return (
     <Fragment>
-    <GalaxyMap
-      planets={planets}
-      spacelanes={spacelanes}
-      dimensions={{ minX: -12000, maxX: 12000, minY: -12000, maxY: 12000 }}
-      zoom={{ initial: 80, min: 0 }}
-    />
-    <p>Star Wars and all associated names are copyright Lucasfilm and Disney</p>
+      <GalaxyMap
+        planets={planets}
+        spacelanes={spacelanes}
+        dimensions={{ minX: -12000, maxX: 12000, minY: -12000, maxY: 12000 }}
+        zoom={{ initial: 80, min: 0 }}
+      />
+      <p>
+        Star Wars and all associated names are copyright Lucasfilm and Disney.
+      </p>
     </Fragment>
   );
 }
