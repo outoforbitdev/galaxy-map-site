@@ -55,7 +55,7 @@ You can explore the `Justfile` to see all available commands.
     ```
     TRUNCATE solar_systems CASCADE;
     COPY solar_systems FROM '/data/db/Systems - Export.csv' DELIMITER ',' HEADER;
-    COPY spacelanes FROM '/data/db/Coordinates - SpacelanesExport.csv' DELIMITER ',' HEADER;
+    COPY spacelanes FROM '/data/db/Systems - SpacelanesExport.csv' DELIMITER ',' HEADER;
     ```
 
 ## Creating a migration
