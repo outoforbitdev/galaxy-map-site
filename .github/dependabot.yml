@@ -21,6 +21,14 @@ updates:
       - "type: chore"
       - "work: obvious"
       - "effort: 1"
+  - package-ecosystem: "docker" # See documentation for possible values
+    directory: "/src" # Location of Dockerfile
+    schedule:
+      interval: "weekly"
+    labels:
+      - "type: chore"
+      - "work: obvious"
+      - "effort: 1"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
