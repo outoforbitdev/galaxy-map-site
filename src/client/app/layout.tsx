@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import "./theme-colors.css";
+import "./themes.css";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import NavLink from "@/components/NavLink";

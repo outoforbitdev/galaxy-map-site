@@ -13,7 +13,7 @@ public struct System {
         Name = system.Name;
         X = system.Coordinates.X;
         Y = system.Coordinates.Y;
-        Color = "white";
+        Color = Enum.GetName(typeof(MapColor), MapColor.Gray) ?? "Gray";
         FocusLevel = (10 - system.Focus) * 10 + 1;
     }
     #endregion Constructors

@@ -5,7 +5,7 @@ import {
   WheelEventHandler,
   TouchEventHandler,
 } from "react";
-import Draggable from "./Draggable";
+import Draggable from "../Draggable";
 import PlanetMap, { IPlanet } from "./PlanetMap";
 import styles from "./map.module.css";
 import SpacelaneMap, { ISpacelane } from "./SpacelaneMap";
