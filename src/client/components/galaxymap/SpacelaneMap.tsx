@@ -1,3 +1,4 @@
+import { colorToCss, MapColor } from "./Colors";
 import { zoomLevelToModifier } from "./GalaxyMap";
 
 export interface ISpacelane {
@@ -6,7 +7,7 @@ export interface ISpacelane {
   yOne: number;
   xTwo: number;
   yTwo: number;
-  color: string;
+  color: MapColor;
   focusLevel: number;
 }
 
@@ -24,7 +25,7 @@ export default function SpacelaneMap(props: ISpacelaneMapProps) {
   const yOne = props.centerY - spacelane.yOne / zoomModifier;
   const xTwo = props.centerX + spacelane.xTwo / zoomModifier;
   const yTwo = props.centerY - spacelane.yTwo / zoomModifier;
-  const color = spacelane.color;
+  const color = colorToCss(spacelane.color);
   const inFocus = spacelane.focusLevel >= zoomModifier;
   const strokeWidth = inFocus
     ? 3
