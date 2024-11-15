@@ -19,7 +19,7 @@ RUN npm install
 COPY ./src/client .
 RUN npm run build
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
 
 RUN apt-get update -y
