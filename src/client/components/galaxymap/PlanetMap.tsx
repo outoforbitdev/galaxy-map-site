@@ -30,16 +30,10 @@ export default function PlanetMap(props: IPlanetMapProps) {
   console.log(color);
 
   return (
-    <g fill={color}>
+    <g fill={color} stroke={color}>
       <circle cx={x} cy={y} r={radius} />
       {inFocus ? (
-        <text
-          x={x + 10}
-          y={y + 5}
-          // stroke={"var(--neutral-background)"}
-          strokeWidth={1}
-          fontWeight={950}
-        >
+        <text x={x + 10} y={y + 5}>
           {name}
         </text>
       ) : null}

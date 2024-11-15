@@ -1,4 +1,15 @@
 :root {
+  /* Example Swatch
+  --example-100: Almost white, AAA contrast with shades 700-900
+  --example-200: AAA contrast with 800-900, AA contrast with 700
+  --example-300: AAA contrast with 900, AA contrast with 800
+  --example-400: AA contrast with 900
+  --example-500: no contrast, core color for theme primary
+  --example-600: no contrast, core color for theme primary
+  --example-700: AA contrast with 200
+  --example-800: AAA contrast with 200, AA constrast with 300
+  --example-900: AAA contrast with 200-300, AA contrast with 400 */
+
   /* Blue */
   --blue-100: #f5f2ff;
   --blue-200: #c3b6ff;
