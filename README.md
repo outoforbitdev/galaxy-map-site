@@ -1,5 +1,23 @@
 # app-galaxy-map
 
+<p align="center">
+  <!-- <a href="https://github.com/outoforbitdev/app-galaxy-map/actions?query=workflow%3ATest+branch%3Amaster">
+    <img alt="Build states" src="https://github.com/outoforbitdev/app-galaxy-map/workflows/Test/badge.svg">
+  </a>
+  <a href="https://github.com/outoforbitdev/app-galaxy-map/actions">
+    <img alt="Build states" src="https://github.com/outoforbitdev/app-galaxy-map/workflows/Release/badge.svg">
+  </a> -->
+  <a href="https://securityscorecards.dev/viewer/?uri=github.com/outoforbitdev/app-galaxy-map">
+    <img alt="OpenSSF Scorecard" src="https://api.securityscorecards.dev/projects/github.com/outoforbitdev/app-galaxy-map/badge">
+  </a>
+  <a href="https://github.com/outoforbitdev/app-galaxy-map/releases/latest">
+    <img alt="Latest release" src="https://img.shields.io/github/v/release/outoforbitdev/app-galaxy-map?logo=github">
+  </a>
+  <a href="https://github.com/outoforbitdev/app-galaxy-map/issues">
+    <img alt="Open issues" src="https://img.shields.io/github/issues/outoforbitdev/app-galaxy-map?logo=github">
+  </a>
+</p>
+
 A web application for viewing the galaxy far, far away.
 
 ## Getting started
