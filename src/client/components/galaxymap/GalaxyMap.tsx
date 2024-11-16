@@ -42,7 +42,7 @@ export default function Map(props: IMapProps) {
   const [offsetY, setOffsetY] = useState(0);
   const [zoomLevel, setZoomLevel] = useState(props.zoom.initial ?? 1);
   const previousPointerDiff = useRef(-1);
-  const initialPointerPosition = useRef({pageX: 0, pageY: 0});
+  const initialPointerPosition = useRef({ pageX: 0, pageY: 0 });
 
   useEffect(() => {
     if (containerRef.current) {
