@@ -49,7 +49,7 @@ export default function Map(props: IMapProps) {
       setOffsetX((container.width - mapWidth) / 2);
       setOffsetY((container.height - mapHeight) / 2);
     }
-  });
+  }, []);
 
   const onPointerDown: TouchEventHandler<SVGElement> = function (e) {
     if (e.touches.length !== 2) return;
@@ -110,6 +110,7 @@ export default function Map(props: IMapProps) {
       oldZoomModifier,
       newZoomModifier,
     );
+    console.log(`old offset: ${offsetX}, new offset: ${offsetX + oldMousePixel.x - newMousePixel.x}`);
     setOffsetX(offsetX + oldMousePixel.x - newMousePixel.x);
     setOffsetY(offsetY + oldMousePixel.y - newMousePixel.y);
   };
