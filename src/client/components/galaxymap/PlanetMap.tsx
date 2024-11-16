@@ -24,7 +24,6 @@ export default function PlanetMap(props: IPlanetMapProps) {
   const name = planet.name;
   const color = colorToCss(planet.color);
   const inFocus = planet.focusLevel >= zoomModifier;
-  console.log(`focuslevel: ${planet.focusLevel}, zoomModifier: ${zoomModifier}`);
   const radius = inFocus ? 3 : zoomModifier - planet.focusLevel < 10 ? 2 : 1;
   if (zoomModifier - planet.focusLevel > 20) return;
 
