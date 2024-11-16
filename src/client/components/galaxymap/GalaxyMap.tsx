@@ -123,6 +123,7 @@ export default function Map(props: IMapProps) {
             position: "relative",
             top: offsetY,
             left: offsetX,
+            zIndex: -1,
           }}
           color="currentColor"
           fill="currentColor"
