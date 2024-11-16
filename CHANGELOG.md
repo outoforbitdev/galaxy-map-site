@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/outoforbitdev/app-galaxy-map/compare/v1.0.0...v1.0.1) (2024-11-16)
+
+
+### Bug Fixes
+
+* **ci:** target amd64 for docker image ([a092d68](https://github.com/outoforbitdev/app-galaxy-map/commit/a092d68c4ce53ba34392776817e4372c62b9737f))
+
 # 1.0.0 (2024-11-16)
 
 
