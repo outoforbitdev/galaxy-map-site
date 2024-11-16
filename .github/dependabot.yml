@@ -45,3 +45,11 @@ updates:
       - "type: chore"
       - "work: obvious"
       - "effort: 1"
+  - package-ecosystem: "nuget"
+    directory: "/src/service"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "type: chore"
+      - "work: obvious"
+      - "effort: 1"
