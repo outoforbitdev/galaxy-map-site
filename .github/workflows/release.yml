@@ -42,4 +42,5 @@ jobs:
           docker-username: ${{ vars.DOCKER_USERNAME }}
           docker-token: ${{ secrets.DOCKER_TOKEN }}
           image-name: ${{ vars.IMAGE_NAME }}
-          image-tag: "dotnet6-${{ needs.release.outputs.next-version }}"
+          image-tag: "${{ needs.release.outputs.next-version }}"
+          platforms: "linux/amd64"
