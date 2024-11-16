@@ -42,6 +42,7 @@ export default function Map(props: IMapProps) {
   const [offsetY, setOffsetY] = useState(0);
   const [zoomLevel, setZoomLevel] = useState(props.zoom.initial ?? 1);
   const previousPointerDiff = useRef(-1);
+  const initialPointerPosition = useRef({pageX: 0, pageY: 0});
 
   useEffect(() => {
     if (containerRef.current) {
@@ -51,11 +52,15 @@ export default function Map(props: IMapProps) {
     }
   }, []);
 
-  const onPointerDown: TouchEventHandler<SVGElement> = function (e) {
-    if (e.touches.length !== 2) return;
+  const onPointerDown: TouchEventHandler<SVGElement> = function (event) {
+    if (event.touches.length !== 2) return;
     previousPointerDiff.current = Math.abs(
-      e.touches[0].pageX - e.touches[1].pageX,
+      event.touches[0].pageX - event.touches[1].pageX,
     );
+    initialPointerPosition.current = {
+      pageX: (event.touches[0].pageX + event.touches[1].pageX) / 2,
+      pageY: (event.touches[0].pageY + event.touches[1].pageY) / 2,
+    };
   };
 
   const onPointerMove: TouchEventHandler<SVGElement> = function (event) {
@@ -63,16 +68,12 @@ export default function Map(props: IMapProps) {
     const currentDiff = Math.abs(
       event.touches[0].pageX - event.touches[1].pageX,
     );
-    const pointerCenter = {
-      pageX: (event.touches[0].pageX + event.touches[1].pageX) / 2,
-      pageY: (event.touches[0].pageY + event.touches[1].pageY) / 2,
-    };
     if (previousPointerDiff.current > 0) {
       const scaleConstant = 5;
       if (currentDiff > previousPointerDiff.current) {
-        adjustZoom(-scaleConstant, pointerCenter);
+        adjustZoom(-scaleConstant, initialPointerPosition.current);
       } else if (currentDiff < previousPointerDiff.current) {
-        adjustZoom(scaleConstant, pointerCenter);
+        adjustZoom(scaleConstant, initialPointerPosition.current);
       }
     }
     previousPointerDiff.current = currentDiff;
