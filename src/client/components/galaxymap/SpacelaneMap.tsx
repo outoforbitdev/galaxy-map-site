@@ -28,10 +28,9 @@ export default function SpacelaneMap(props: ISpacelaneMapProps) {
   const color = colorToCss(spacelane.color);
   const inFocus = spacelane.focusLevel >= zoomModifier;
   const strokeWidth = inFocus
-    ? 3
-    : zoomModifier - spacelane.focusLevel < 10
-      ? 1
-      : 0;
+    ? 2
+    : 1;
+    if (zoomModifier - spacelane.focusLevel > 5) return;
 
   return (
     <g fill={color} stroke={color}>
