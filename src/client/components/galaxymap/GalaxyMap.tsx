@@ -110,7 +110,6 @@ export default function Map(props: IMapProps) {
       oldZoomModifier,
       newZoomModifier,
     );
-    console.log(`old offset: ${offsetX}, new offset: ${offsetX + oldMousePixel.x - newMousePixel.x}`);
     setOffsetX(offsetX + oldMousePixel.x - newMousePixel.x);
     setOffsetY(offsetY + oldMousePixel.y - newMousePixel.y);
   };
