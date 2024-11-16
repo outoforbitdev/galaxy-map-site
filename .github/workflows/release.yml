@@ -1,0 +1,45 @@
+name: Release App
+permissions: read-all
+on:
+  push:
+    branches:
+      - main
+      - beta
+      - dev
+      - staging
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    name: Publish Github Release
+    outputs:
+      version-released: ${{ steps.semantic-release.outputs.version-released }}
+      next-version: ${{ steps.semantic-release.outputs.next-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Publish Release
+        uses: outoforbitdev/action-semantic-release@v1.6.2
+        id: semantic-release
+        with:
+          github-token: ${{ secrets.RELEASE_TOKEN }}
+          skip-changelog: ${{ github.ref_name != 'main' }}
+  publish-aspnet:
+    runs-on: ubuntu-latest
+    name: Publish ASPNET Images
+    needs:
+      - release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Publish ASPNET 6 Image
+        uses: outoforbitdev/action-docker-publish@v3.0.0
+        if: ${{ needs.release.outputs.version-released }}
+        with:
+          docker-username: ${{ vars.DOCKER_USERNAME }}
+          docker-token: ${{ secrets.DOCKER_TOKEN }}
+          image-name: ${{ vars.IMAGE_NAME }}
+          image-tag: "dotnet6-${{ needs.release.outputs.next-version }}"
