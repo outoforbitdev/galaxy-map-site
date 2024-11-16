@@ -26,6 +26,6 @@ nav.nav {
 }
 
 .nav a:hover {
-  background-color: var(--foreground);
-  color: var(--background);
+  background-color: var(--neutral-text);
+  color: var(--neutral-background);
 }

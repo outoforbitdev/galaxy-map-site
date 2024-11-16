@@ -14,7 +14,7 @@ public struct System {
         X = system.Coordinates.X;
         Y = system.Coordinates.Y;
         Color = Enum.GetName(typeof(MapColor), MapColor.Gray) ?? "Gray";
-        FocusLevel = (10 - system.Focus) * 10 + 1;
+        FocusLevel = FocusLevelConverter.convertFormap(system.Focus);
     }
     #endregion Constructors
 }

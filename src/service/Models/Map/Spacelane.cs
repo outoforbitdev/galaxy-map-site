@@ -18,7 +18,7 @@ public struct Spacelane{
         XTwo = spacelane.Destination.Coordinates.X;
         YTwo = spacelane.Destination.Coordinates.Y;
         Color = Enum.GetName(typeof(MapColor), MapColor.Gray) ?? "Gray";
-        FocusLevel = (10 - spacelane.Focus) * 10 + 1;
+        FocusLevel = FocusLevelConverter.convertFormap(spacelane.Focus);
     }
     #endregion Constructors
 }
