@@ -33,9 +33,9 @@ interface IGenericEvent {
 }
 
 export default function Map(props: IMapProps) {
-  // 
+  //
   // ZOOM PROPERTIES
-  // 
+  //
   const mapWidth = props.dimensions.maxX - props.dimensions.minX;
   const mapHeight = props.dimensions.maxY - props.dimensions.minY;
   const centerX = props.dimensions.minX * -1;
@@ -48,15 +48,15 @@ export default function Map(props: IMapProps) {
   const previousPointerDiff = useRef(-1);
   const initialPointerPosition = useRef({ pageX: 0, pageY: 0 });
 
-  // 
+  //
   // OPTIONS PROPERTIES
-  // 
+  //
   const [showAllPlanets, setShowAllPlanets] = useState(false);
   const [showAllSpacelanes, setShowAllSpacelanes] = useState(false);
 
-  // 
+  //
   // ZOOM FUNCTIONS
-  // 
+  //
   useEffect(() => {
     if (containerRef.current) {
       const container = containerRef.current.getBoundingClientRect();
@@ -131,8 +131,20 @@ export default function Map(props: IMapProps) {
   return (
     <div ref={containerRef} className={styles.container}>
       <Expandable className={styles.optionsWindow} title="Map Options">
-        <span><input type={"checkbox"} onChange={(cb) => setShowAllPlanets(cb.target.checked)}/><label>Show all planets</label></span>
-        <span><input type={"checkbox"} onChange={(cb) => setShowAllSpacelanes(cb.target.checked)}/><label>Show all spacelanes</label></span>
+        <span>
+          <input
+            type={"checkbox"}
+            onChange={(cb) => setShowAllPlanets(cb.target.checked)}
+          />
+          <label>Show all planets</label>
+        </span>
+        <span>
+          <input
+            type={"checkbox"}
+            onChange={(cb) => setShowAllSpacelanes(cb.target.checked)}
+          />
+          <label>Show all spacelanes</label>
+        </span>
       </Expandable>
       <Draggable initialPosition={{ x: 0, y: 0 }}>
         <svg

@@ -6,17 +6,30 @@ import { IconColorScheme, IconSize } from "./icons/Icon";
 import styles from "./expandable.module.css";
 
 interface IExpandableProps extends IComponentProps {
-    title?: string,
+  title?: string;
 }
 
 export default function Expandable(props: IExpandableProps) {
-    const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   return (
     <div {...getDomProps(props, styles.expandable)}>
-      {expanded ?
-        <span><DoubleArrowUp onClick={() => setExpanded(false)} colorScheme={IconColorScheme.NeutralInverted} className={styles.toggle} clickable/></span> :
-        <DoubleArrowDown onClick={() => setExpanded(true)} colorScheme={IconColorScheme.NeutralInverted}  className={styles.toggle} clickable />
-      }
+      {expanded ? (
+        <span>
+          <DoubleArrowUp
+            onClick={() => setExpanded(false)}
+            colorScheme={IconColorScheme.NeutralInverted}
+            className={styles.toggle}
+            clickable
+          />
+        </span>
+      ) : (
+        <DoubleArrowDown
+          onClick={() => setExpanded(true)}
+          colorScheme={IconColorScheme.NeutralInverted}
+          className={styles.toggle}
+          clickable
+        />
+      )}
       {expanded ? props.children : null}
     </div>
   );

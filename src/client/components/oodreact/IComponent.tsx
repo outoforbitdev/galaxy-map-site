@@ -1,23 +1,26 @@
-import { CSSProperties, MouseEventHandler, ReactNode, } from "react";
+import { CSSProperties, MouseEventHandler, ReactNode } from "react";
 
 export interface IChildlessComponentProps {
   className?: string;
   id?: string;
-  onClick?: MouseEventHandler,
-  style?: CSSProperties
+  onClick?: MouseEventHandler;
+  style?: CSSProperties;
 }
 
 export interface IComponentProps extends IChildlessComponentProps {
   children?: ReactNode;
 }
 
-export function getDomProps(props: IComponentProps, ...args: (string | undefined)[]) {
+export function getDomProps(
+  props: IComponentProps,
+  ...args: (string | undefined)[]
+) {
   return {
     className: combineClassNames(props.className, ...args),
     id: props.id,
     onClick: props.onClick,
     style: props.style,
-  }
+  };
 }
 
 export function combineClassNames(...args: (string | undefined)[]) {

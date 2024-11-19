@@ -1,5 +1,9 @@
 import { CSSProperties } from "react";
-import { getDomProps, IChildlessComponentProps, IComponentProps } from "../IComponent";
+import {
+  getDomProps,
+  IChildlessComponentProps,
+  IComponentProps,
+} from "../IComponent";
 import styles from "./icon.module.css";
 
 export interface IIconProps extends IChildlessComponentProps {
@@ -50,7 +54,11 @@ export function Icon(props: IIconInternalProps) {
       stroke={foregroundColor}
       viewBox={`0 0 ${props.viewBoxSize} ${props.viewBoxSize}`}
       strokeWidth={10}
-      {...getDomProps(props.externalProps, sizeClass, props.externalProps.clickable ? styles.clickable : undefined)}
+      {...getDomProps(
+        props.externalProps,
+        sizeClass,
+        props.externalProps.clickable ? styles.clickable : undefined,
+      )}
     >
       {props.externalProps.includeBackground ? background : null}
       {props.children}
@@ -59,7 +67,7 @@ export function Icon(props: IIconInternalProps) {
 }
 
 function getClassFromSize(size?: IconSize) {
-  switch(size){
+  switch (size) {
     case IconSize.Small:
       return styles.small;
     case IconSize.Large:
