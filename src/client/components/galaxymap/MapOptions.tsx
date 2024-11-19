@@ -30,6 +30,7 @@ export function MapOptions(props: IMapOptionProps) {
           <input
             type={p.inputType}
             onChange={(event) => p.setValue(event.target.checked)}
+            checked={p.currentValue}
           />
           <label>{p.label}</label>
         </span>
