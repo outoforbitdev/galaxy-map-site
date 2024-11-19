@@ -41,7 +41,9 @@ export default function SpacelaneMap(props: ISpacelaneMapProps) {
   return (
     <g fill={color} stroke={color}>
       <line x1={xOne} y1={yOne} x2={xTwo} y2={yTwo} strokeWidth={strokeWidth} />
-      {inFocus && checkIfSpaceForText(xOne, xTwo, yOne, yTwo, name) && !props.hideLabel ? (
+      {inFocus &&
+      checkIfSpaceForText(xOne, xTwo, yOne, yTwo, name) &&
+      !props.hideLabel ? (
         <text
           x={textPosition.x}
           y={textPosition.y}
