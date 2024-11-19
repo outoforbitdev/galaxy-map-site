@@ -1,5 +1,6 @@
 import { colorToCss, MapColor } from "./Colors";
 import { zoomLevelToModifier } from "./GalaxyMap";
+import styles from "./map.module.css";
 
 export interface ISpacelane {
   name: string;
@@ -15,6 +16,7 @@ interface ISpacelaneMapProps {
   spacelane: ISpacelane;
   centerX: number;
   centerY: number;
+  forceShow?: boolean;
   zoomLevel: number;
 }
 
@@ -29,7 +31,7 @@ export default function SpacelaneMap(props: ISpacelaneMapProps) {
   const color = colorToCss(spacelane.color);
   const inFocus = spacelane.focusLevel >= zoomModifier;
   const strokeWidth = inFocus ? 2 : 1;
-  if (zoomModifier - spacelane.focusLevel > 5) return;
+  if (zoomModifier - spacelane.focusLevel > 5 && !props.forceShow) return;
 
   const textRotation =
     (Math.atan((yTwo - yOne) / (xTwo - xOne)) * 180) / Math.PI;

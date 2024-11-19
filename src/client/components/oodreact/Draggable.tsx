@@ -7,10 +7,10 @@ import {
   PointerEventHandler,
   useEffect,
 } from "react";
-import { IComponent } from "./IComponent";
+import { getDomProps, IComponentProps } from "./IComponent";
 import styles from "./draggable.module.css";
 
-interface IDraggableProps extends IComponent {
+interface IDraggableProps extends IComponentProps {
   initialPosition: IPosition;
 }
 
@@ -97,8 +97,8 @@ export default function Draggable(props: IDraggableProps) {
   return (
     <div
       ref={staticRef}
-      className={styles.draggable}
       onPointerDown={onPointerDown}
+      {...getDomProps(props, styles.draggable)}
     >
       <div
         ref={draggableRef}

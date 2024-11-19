@@ -5,4 +5,22 @@ div.container {
   max-height: 100vh;
   height: 74vh;
   border: 1px solid var(--neutral-text);
+  position: relative;
+}
+
+.mapItem {
+  z-index: -1;
+}
+
+.optionsWindow {
+  background-color: var(--neutral-text);
+  color: var(--neutral-background);
+  margin-left: auto;
+  margin-right: 0;
+  position: absolute;
+  z-index: 1;
+  /* float: right; */
+  right: 0;
+  /* right: 5px;
+  top: 5px; */
 }

@@ -3,8 +3,8 @@ import localFont from "next/font/local";
 import "./theme-colors.css";
 import "./themes.css";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
-import NavLink from "@/components/NavLink";
+import NavBar from "../components/oodreact/NavBar";
+import NavLink from "../components/oodreact/NavLink";
 import styles from "./page.module.css";
 
 const geistSans = localFont({

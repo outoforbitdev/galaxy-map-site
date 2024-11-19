@@ -5,10 +5,11 @@ import {
   WheelEventHandler,
   TouchEventHandler,
 } from "react";
-import Draggable from "../Draggable";
+import Draggable from "../oodreact/Draggable";
 import PlanetMap, { IPlanet } from "./PlanetMap";
 import styles from "./map.module.css";
 import SpacelaneMap, { ISpacelane } from "./SpacelaneMap";
+import Expandable from "../oodreact/Expandable";
 
 interface IMapProps {
   planets: IPlanet[];
@@ -32,6 +33,9 @@ interface IGenericEvent {
 }
 
 export default function Map(props: IMapProps) {
+  // 
+  // ZOOM PROPERTIES
+  // 
   const mapWidth = props.dimensions.maxX - props.dimensions.minX;
   const mapHeight = props.dimensions.maxY - props.dimensions.minY;
   const centerX = props.dimensions.minX * -1;
@@ -44,6 +48,15 @@ export default function Map(props: IMapProps) {
   const previousPointerDiff = useRef(-1);
   const initialPointerPosition = useRef({ pageX: 0, pageY: 0 });
 
+  // 
+  // OPTIONS PROPERTIES
+  // 
+  const [showAllPlanets, setShowAllPlanets] = useState(false);
+  const [showAllSpacelanes, setShowAllSpacelanes] = useState(false);
+
+  // 
+  // ZOOM FUNCTIONS
+  // 
   useEffect(() => {
     if (containerRef.current) {
       const container = containerRef.current.getBoundingClientRect();
@@ -117,9 +130,14 @@ export default function Map(props: IMapProps) {
 
   return (
     <div ref={containerRef} className={styles.container}>
+      <Expandable className={styles.optionsWindow} title="Map Options">
+        <span><input type={"checkbox"} onChange={(cb) => setShowAllPlanets(cb.target.checked)}/><label>Show all planets</label></span>
+        <span><input type={"checkbox"} onChange={(cb) => setShowAllSpacelanes(cb.target.checked)}/><label>Show all spacelanes</label></span>
+      </Expandable>
       <Draggable initialPosition={{ x: 0, y: 0 }}>
         <svg
           style={{
+            // zIndex: -1,
             position: "relative",
             top: offsetY,
             left: offsetX,
@@ -140,6 +158,7 @@ export default function Map(props: IMapProps) {
               centerX={centerX}
               centerY={centerY}
               key={_i}
+              forceShow={showAllSpacelanes}
               zoomLevel={zoomLevel}
             />
           ))}
@@ -148,6 +167,7 @@ export default function Map(props: IMapProps) {
               planet={p}
               centerX={centerX}
               centerY={centerY}
+              forceShow={showAllPlanets}
               key={_i}
               zoomLevel={zoomLevel}
             />

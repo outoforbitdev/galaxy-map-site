@@ -1,8 +1,8 @@
 import classNames from "./classNames";
-import { IComponent } from "./IComponent";
+import { getDomProps, IComponentProps } from "./IComponent";
 import styles from "./nav.module.css";
 
-export interface INavLinkProps extends IComponent {
+export interface INavLinkProps extends IComponentProps {
   to: string;
 }
 
@@ -10,7 +10,7 @@ export default function NavLink(props: INavLinkProps) {
   return (
     <a
       href={props.to}
-      className={classNames(styles.nav, styles.item, props.className)}
+      {...getDomProps(props, styles.nav, styles.item)}
     >
       {props.children}
     </a>
