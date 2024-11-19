@@ -1,6 +1,6 @@
 import { colorToCss, MapColor } from "./Colors";
-import { zoomLevelToModifier } from "./GalaxyMap";
 import styles from "./map.module.css";
+import { zoomLevelToModifier } from "./ZoomableMap";
 
 export interface ISpacelane {
   name: string;
@@ -17,6 +17,7 @@ interface ISpacelaneMapProps {
   centerX: number;
   centerY: number;
   forceShow?: boolean;
+  hideLabel?: boolean;
   zoomLevel: number;
 }
 
@@ -40,7 +41,7 @@ export default function SpacelaneMap(props: ISpacelaneMapProps) {
   return (
     <g fill={color} stroke={color}>
       <line x1={xOne} y1={yOne} x2={xTwo} y2={yTwo} strokeWidth={strokeWidth} />
-      {inFocus && checkIfSpaceForText(xOne, xTwo, yOne, yTwo, name) ? (
+      {inFocus && checkIfSpaceForText(xOne, xTwo, yOne, yTwo, name) && !props.hideLabel ? (
         <text
           x={textPosition.x}
           y={textPosition.y}

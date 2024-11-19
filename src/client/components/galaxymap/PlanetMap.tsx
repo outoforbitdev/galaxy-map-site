@@ -1,5 +1,5 @@
 import { colorToCss, MapColor } from "./Colors";
-import { zoomLevelToModifier } from "./GalaxyMap";
+import { zoomLevelToModifier } from "./ZoomableMap";
 
 export interface IPlanet {
   name: string;
@@ -14,6 +14,7 @@ interface IPlanetMapProps {
   centerX: number;
   centerY: number;
   forceShow?: boolean;
+  hideLabel?: boolean;
   zoomLevel: number;
 }
 
@@ -31,7 +32,7 @@ export default function PlanetMap(props: IPlanetMapProps) {
   return (
     <g fill={color} stroke={color}>
       <circle cx={x} cy={y} r={radius} />
-      {inFocus ? (
+      {inFocus && !props.hideLabel ? (
         <text x={x + 10} y={y + 5}>
           {name}
         </text>
