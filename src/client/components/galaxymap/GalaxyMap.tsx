@@ -1,10 +1,28 @@
 import ZoomableMap, { IZoomableMapProps } from "./ZoomableMap";
-import { MapOptions } from "./MapOptions";
-import { useState } from "react";
+import { IMapOptions, MapOptions } from "./MapOptions";
+import { RefObject, useRef, useState } from "react";
+import { IPlanet } from "./PlanetMap";
+import { ISpacelane } from "./SpacelaneMap";
+import styles from "./map.module.css";
 
-export interface IMapProps extends IZoomableMapProps {}
+export interface IMapProps {
+  planets: IPlanet[];
+  spacelanes: ISpacelane[];
+  dimensions: {
+    minX: number;
+    minY: number;
+    maxX: number;
+    maxY: number;
+  };
+  mapOptions?: IMapOptions;
+  zoom?: {
+    initial?: number;
+    min?: number;
+    max?: number;
+  };}
 
 export default function Map(props: IMapProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [hidePlanetLabels, setHidePlanetLabels] = useState(
     props.mapOptions?.hidePlanetLabels ?? false,
   );
@@ -29,15 +47,16 @@ export default function Map(props: IMapProps) {
     setShowAllSpacelanes,
   );
 
-  props.mapOptions.hidePlanetLabels = hidePlanetLabels;
-  props.mapOptions.hideSpacelaneLabels = hideSpacelaneLabels;
-  props.mapOptions.showAllPlanets = showAllPlanets;
-  props.mapOptions.showAllSpacelanes = showAllSpacelanes;
+  const mapOptionsProps: IMapOptions = {};
+  mapOptionsProps.hidePlanetLabels = hidePlanetLabels;
+  mapOptionsProps.hideSpacelaneLabels = hideSpacelaneLabels;
+  mapOptionsProps.showAllPlanets = showAllPlanets;
+  mapOptionsProps.showAllSpacelanes = showAllSpacelanes;
 
   return (
-    <div>
+    <div ref={containerRef} className={styles.container}>
       <MapOptions mapOptions={mapOptions} />
-      <ZoomableMap {...props} />
+      <ZoomableMap containerRef={containerRef} {...props} mapOptions={mapOptionsProps} zoom={props.zoom ?? {}} />
     </div>
   );
 }

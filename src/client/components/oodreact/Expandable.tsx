@@ -17,7 +17,6 @@ export default function Expandable(props: IExpandableProps) {
         <span>
           <DoubleArrowUp
             onClick={() => setExpanded(false)}
-            colorScheme={IconColorScheme.NeutralInverted}
             className={styles.toggle}
             clickable
           />
@@ -25,7 +24,6 @@ export default function Expandable(props: IExpandableProps) {
       ) : (
         <DoubleArrowDown
           onClick={() => setExpanded(true)}
-          colorScheme={IconColorScheme.NeutralInverted}
           className={styles.toggle}
           clickable
         />

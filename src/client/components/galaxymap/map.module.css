@@ -13,14 +13,19 @@ div.container {
 }
 
 .optionsWindow {
-  background-color: var(--neutral-text);
-  color: var(--neutral-background);
-  margin-left: auto;
-  margin-right: 0;
+  background-color: var(--primary-accent);
+  color: var(--neutral-text);
   position: absolute;
   z-index: 1;
   /* float: right; */
-  right: 0;
+  right: 0.2em;
+  top: 0.2em;
   /* right: 5px;
   top: 5px; */
+}
+
+.optionsWindowContent {
+  padding: 0.4em;
+  display: flex;
+  flex-direction: column;
 }

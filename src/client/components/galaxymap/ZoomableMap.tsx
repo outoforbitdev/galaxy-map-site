@@ -4,6 +4,7 @@ import {
   useState,
   WheelEventHandler,
   TouchEventHandler,
+  RefObject,
 } from "react";
 import Draggable from "../oodreact/Draggable";
 import PlanetMap, { IPlanet } from "./PlanetMap";
@@ -14,6 +15,7 @@ import { IMapOptions } from "./MapOptions";
 export interface IZoomableMapProps {
   planets: IPlanet[];
   spacelanes: ISpacelane[];
+  containerRef: RefObject<HTMLDivElement>;
   dimensions: {
     minX: number;
     minY: number;
@@ -41,7 +43,6 @@ export default function ZoomableMap(props: IZoomableMapProps) {
   const mapHeight = props.dimensions.maxY - props.dimensions.minY;
   const centerX = props.dimensions.minX * -1;
   const centerY = props.dimensions.maxY;
-  const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<SVGSVGElement>(null);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
@@ -53,8 +54,8 @@ export default function ZoomableMap(props: IZoomableMapProps) {
   // ZOOM FUNCTIONS
   //
   useEffect(() => {
-    if (containerRef.current) {
-      const container = containerRef.current.getBoundingClientRect();
+    if (props.containerRef.current) {
+      const container = props.containerRef.current.getBoundingClientRect();
       setOffsetX((container.width - mapWidth) / 2);
       setOffsetY((container.height - mapHeight) / 2);
     }
@@ -124,7 +125,6 @@ export default function ZoomableMap(props: IZoomableMapProps) {
   };
 
   return (
-    <div ref={containerRef} className={styles.container}>
       <Draggable initialPosition={{ x: 0, y: 0 }}>
         <svg
           style={{
@@ -167,7 +167,6 @@ export default function ZoomableMap(props: IZoomableMapProps) {
           ))}
         </svg>
       </Draggable>
-    </div>
   );
 }
 

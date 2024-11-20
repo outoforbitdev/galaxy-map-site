@@ -4,8 +4,8 @@ export default function DoubleArrowDown(props: IIconProps) {
   return (
     <Icon externalProps={props} viewBoxSize={100}>
       <g>
-        <polyline points="0,10 50,60, 100,10" fill="none" />
-        <polyline points="0,40 50,90, 100,40" fill="none" />
+        <polyline points="20,20 50,50, 80,20" fill="none" />
+        <polyline points="20,50 50,80, 80,50" fill="none" />
       </g>
     </Icon>
   );

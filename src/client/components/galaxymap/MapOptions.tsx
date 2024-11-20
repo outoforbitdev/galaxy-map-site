@@ -25,16 +25,18 @@ interface IMapOptionProps {
 export function MapOptions(props: IMapOptionProps) {
   return (
     <Expandable className={styles.optionsWindow} title="Map Options">
-      {props.mapOptions.map((p, i) => (
-        <span key={i}>
-          <input
-            type={p.inputType}
-            onChange={(event) => p.setValue(event.target.checked)}
-            checked={p.currentValue}
-          />
-          <label>{p.label}</label>
-        </span>
-      ))}
+      <div className={styles.optionsWindowContent} >
+        {props.mapOptions.map((p, i) => (
+          <span key={i}>
+            <input
+              type={p.inputType}
+              onChange={(event) => p.setValue(event.target.checked)}
+              checked={p.currentValue}
+            />
+            <label>{p.label}</label>
+          </span>
+        ))}
+      </div>
     </Expandable>
   );
 }

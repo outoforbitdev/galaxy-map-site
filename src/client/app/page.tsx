@@ -29,7 +29,6 @@ export default function Map() {
         planets={planets}
         spacelanes={spacelanes}
         dimensions={{ minX: -12000, maxX: 12000, minY: -12000, maxY: 12000 }}
-        mapOptions={{}}
         zoom={{ initial: 80, min: 0 }}
       />
       <p>

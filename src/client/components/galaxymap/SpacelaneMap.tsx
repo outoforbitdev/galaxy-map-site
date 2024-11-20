@@ -50,6 +50,7 @@ export default function SpacelaneMap(props: ISpacelaneMapProps) {
           transform={`rotate(${textRotation} ${textPosition.x} ${textPosition.y})`}
           textAnchor="middle"
           dominantBaseline="middle"
+          fontWeight={"bold"} strokeWidth={"1px"} stroke="var(--neutral-background)"
         >
           {name}
         </text>
