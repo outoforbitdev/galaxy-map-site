@@ -19,7 +19,8 @@ export interface IMapProps {
     initial?: number;
     min?: number;
     max?: number;
-  };}
+  };
+}
 
 export default function Map(props: IMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,7 +57,12 @@ export default function Map(props: IMapProps) {
   return (
     <div ref={containerRef} className={styles.container}>
       <MapOptions mapOptions={mapOptions} />
-      <ZoomableMap containerRef={containerRef} {...props} mapOptions={mapOptionsProps} zoom={props.zoom ?? {}} />
+      <ZoomableMap
+        containerRef={containerRef}
+        {...props}
+        mapOptions={mapOptionsProps}
+        zoom={props.zoom ?? {}}
+      />
     </div>
   );
 }

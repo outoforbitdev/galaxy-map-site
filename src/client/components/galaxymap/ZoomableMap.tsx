@@ -125,48 +125,48 @@ export default function ZoomableMap(props: IZoomableMapProps) {
   };
 
   return (
-      <Draggable initialPosition={{ x: 0, y: 0 }}>
-        <svg
-          style={{
-            // zIndex: -1,
-            position: "relative",
-            top: offsetY,
-            left: offsetX,
-          }}
-          color="currentColor"
-          fill="currentColor"
-          width={`${mapWidth}px`}
-          height={`${mapHeight}px`}
-          onWheel={onWheel}
-          ref={mapRef}
-          onTouchStart={onPointerDown}
-          onTouchMove={onPointerMove}
-          onTouchEnd={onPointerUp}
-        >
-          {props.spacelanes.map((s: ISpacelane, _i: number) => (
-            <SpacelaneMap
-              spacelane={s}
-              centerX={centerX}
-              centerY={centerY}
-              key={_i}
-              forceShow={props.mapOptions.showAllSpacelanes}
-              hideLabel={props.mapOptions.hideSpacelaneLabels}
-              zoomLevel={zoomLevel}
-            />
-          ))}
-          {props.planets.map((p: IPlanet, _i: number) => (
-            <PlanetMap
-              planet={p}
-              centerX={centerX}
-              centerY={centerY}
-              forceShow={props.mapOptions.showAllPlanets}
-              hideLabel={props.mapOptions.hidePlanetLabels}
-              key={_i}
-              zoomLevel={zoomLevel}
-            />
-          ))}
-        </svg>
-      </Draggable>
+    <Draggable initialPosition={{ x: 0, y: 0 }}>
+      <svg
+        style={{
+          // zIndex: -1,
+          position: "relative",
+          top: offsetY,
+          left: offsetX,
+        }}
+        color="currentColor"
+        fill="currentColor"
+        width={`${mapWidth}px`}
+        height={`${mapHeight}px`}
+        onWheel={onWheel}
+        ref={mapRef}
+        onTouchStart={onPointerDown}
+        onTouchMove={onPointerMove}
+        onTouchEnd={onPointerUp}
+      >
+        {props.spacelanes.map((s: ISpacelane, _i: number) => (
+          <SpacelaneMap
+            spacelane={s}
+            centerX={centerX}
+            centerY={centerY}
+            key={_i}
+            forceShow={props.mapOptions.showAllSpacelanes}
+            hideLabel={props.mapOptions.hideSpacelaneLabels}
+            zoomLevel={zoomLevel}
+          />
+        ))}
+        {props.planets.map((p: IPlanet, _i: number) => (
+          <PlanetMap
+            planet={p}
+            centerX={centerX}
+            centerY={centerY}
+            forceShow={props.mapOptions.showAllPlanets}
+            hideLabel={props.mapOptions.hidePlanetLabels}
+            key={_i}
+            zoomLevel={zoomLevel}
+          />
+        ))}
+      </svg>
+    </Draggable>
   );
 }
 

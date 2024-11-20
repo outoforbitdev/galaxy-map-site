@@ -25,7 +25,7 @@ interface IMapOptionProps {
 export function MapOptions(props: IMapOptionProps) {
   return (
     <Expandable className={styles.optionsWindow} title="Map Options">
-      <div className={styles.optionsWindowContent} >
+      <div className={styles.optionsWindowContent}>
         {props.mapOptions.map((p, i) => (
           <span key={i}>
             <input

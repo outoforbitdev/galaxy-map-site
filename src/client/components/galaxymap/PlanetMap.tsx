@@ -33,7 +33,13 @@ export default function PlanetMap(props: IPlanetMapProps) {
     <g fill={color} stroke={color}>
       <circle cx={x} cy={y} r={radius} />
       {inFocus && !props.hideLabel ? (
-        <text x={x + 10} y={y + 5} fontWeight={"bold"} strokeWidth={"1px"} stroke="var(--neutral-background)">
+        <text
+          x={x + 10}
+          y={y + 5}
+          fontWeight={"bold"}
+          strokeWidth={"1px"}
+          stroke="var(--neutral-background)"
+        >
           {name}
         </text>
       ) : null}
