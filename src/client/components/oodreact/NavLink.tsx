@@ -6,7 +6,7 @@ export interface INavLinkProps extends IComponentProps {
   to: string;
 }
 
-export default function NavLink(props: INavLinkProps) {
+export function NavLink(props: INavLinkProps) {
   return (
     <a href={props.to} {...getDomProps(props, styles.nav, styles.item)}>
       {props.children}

@@ -6,11 +6,10 @@ import {
   TouchEventHandler,
   RefObject,
 } from "react";
-import Draggable from "../oodreact/Draggable";
 import PlanetMap, { IPlanet } from "./PlanetMap";
-import styles from "./map.module.css";
 import SpacelaneMap, { ISpacelane } from "./SpacelaneMap";
 import { IMapOptions } from "./MapOptions";
+import { Draggable } from "../oodreact";
 
 export interface IZoomableMapProps {
   planets: IPlanet[];

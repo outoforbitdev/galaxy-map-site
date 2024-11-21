@@ -1,15 +1,15 @@
+"use client";
+
 import { useState } from "react";
 import { getDomProps, IComponentProps } from "./IComponent";
-import DoubleArrowDown from "./icons/DoubleArrowDown";
-import DoubleArrowUp from "./icons/DoubleArrowUp";
-import { IconColorScheme, IconSize } from "./icons/Icon";
 import styles from "./expandable.module.css";
+import {DoubleArrowDown, DoubleArrowUp} from "./icons";
 
 interface IExpandableProps extends IComponentProps {
   title?: string;
 }
 
-export default function Expandable(props: IExpandableProps) {
+export function Expandable(props: IExpandableProps) {
   const [expanded, setExpanded] = useState(false);
   return (
     <div {...getDomProps(props, styles.expandable)}>

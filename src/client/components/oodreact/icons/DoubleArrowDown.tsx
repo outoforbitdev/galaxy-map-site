@@ -1,6 +1,6 @@
 import { Icon, IIconProps } from "./Icon";
 
-export default function DoubleArrowDown(props: IIconProps) {
+export function DoubleArrowDown(props: IIconProps) {
   return (
     <Icon externalProps={props} viewBoxSize={100}>
       <g>

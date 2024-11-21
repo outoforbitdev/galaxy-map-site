@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CSSProperties,
   RefObject,
@@ -21,7 +23,7 @@ export interface IPosition {
 
 const defaultPosition: IPosition = { x: 0, y: 0 };
 
-export default function Draggable(props: IDraggableProps) {
+export function Draggable(props: IDraggableProps) {
   const draggableRef = useRef<HTMLDivElement>(null);
   const staticRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(props.initialPosition);

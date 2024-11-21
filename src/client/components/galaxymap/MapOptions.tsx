@@ -1,5 +1,4 @@
-import { useState } from "react";
-import Expandable from "../oodreact/Expandable";
+import { Expandable } from "../oodreact";
 import styles from "./map.module.css";
 
 export interface IMapOptions {
@@ -7,6 +6,7 @@ export interface IMapOptions {
   hideSpacelaneLabels?: boolean;
   showAllPlanets?: boolean;
   showAllSpacelanes?: boolean;
+  customOptions?: MapOption[];
 }
 
 interface IMapOption<T> {
@@ -16,7 +16,7 @@ interface IMapOption<T> {
   inputType: string;
 }
 
-type MapOption = IMapOption<boolean>;
+export type MapOption = IMapOption<boolean>;
 
 interface IMapOptionProps {
   mapOptions: MapOption[];

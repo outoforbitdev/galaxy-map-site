@@ -8,13 +8,13 @@ import styles from "./icon.module.css";
 
 export interface IIconProps extends IChildlessComponentProps {
   clickable?: boolean;
-  colorScheme?: IconColorScheme;
-  includeBackground?: boolean;
+  invert?: boolean;
   size?: IconSize;
 }
 
 interface IIconInternalProps extends IComponentProps {
   externalProps: IIconProps;
+  preventInvert?: boolean;
   viewBoxSize: number;
 }
 
@@ -24,19 +24,9 @@ export enum IconSize {
   Large = 20,
 }
 
-export enum IconColorScheme {
-  Neutral,
-  NeutralInverted,
-}
-
 export function Icon(props: IIconInternalProps) {
   const sizeClass = getClassFromSize(props.externalProps.size);
-  const foregroundColor = getForegroundColorFromScheme(
-    props.externalProps.colorScheme,
-  );
-  const backgroundColor = getBackgroundColorFromScheme(
-    props.externalProps.colorScheme,
-  );
+  const foregroundColor = "currentColor";
   const backgroundCornerRadius = props.viewBoxSize / 3;
   const background = (
     <rect
@@ -45,13 +35,16 @@ export function Icon(props: IIconInternalProps) {
       height={props.viewBoxSize}
       width={props.viewBoxSize}
       rx={backgroundCornerRadius}
-      fill={backgroundColor}
-      stroke={backgroundColor}
+      fill={foregroundColor}
+      stroke={foregroundColor}
+      mask="url(#iconMask)"
     />
   );
+  const inverted = props.externalProps.invert && !props.preventInvert;
   return (
     <svg
       stroke={foregroundColor}
+      fill={foregroundColor}
       viewBox={`0 0 ${props.viewBoxSize} ${props.viewBoxSize}`}
       strokeWidth={10}
       {...getDomProps(
@@ -60,8 +53,17 @@ export function Icon(props: IIconInternalProps) {
         props.externalProps.clickable ? styles.clickable : undefined,
       )}
     >
-      {props.externalProps.includeBackground ? background : null}
-      {props.children}
+      {inverted  ? (
+        <defs>
+          <mask id="iconMask">
+            <rect x={0} y={0} height={props.viewBoxSize} width={props.viewBoxSize} fill="white" />
+            <g stroke="black" fill="black">
+              {props.children}
+            </g>
+          </mask>
+        </defs>
+      ) : null}
+      {inverted ? background : props.children}
     </svg>
   );
 }
@@ -75,25 +77,5 @@ function getClassFromSize(size?: IconSize) {
     case IconSize.Medium:
     default:
       return styles.medium;
-  }
-}
-
-function getBackgroundColorFromScheme(colorScheme?: IconColorScheme) {
-  switch (colorScheme) {
-    case IconColorScheme.NeutralInverted:
-      return "var(--neutral-text)";
-    case IconColorScheme.Neutral:
-    default:
-      return "var(--neutral-background)";
-  }
-}
-
-function getForegroundColorFromScheme(colorScheme?: IconColorScheme) {
-  switch (colorScheme) {
-    case IconColorScheme.NeutralInverted:
-      return "var(--neutral-background)";
-    case IconColorScheme.Neutral:
-    default:
-      return "var(--neutral-text)";
   }
 }

@@ -1,6 +1,8 @@
-import ZoomableMap, { IZoomableMapProps } from "./ZoomableMap";
-import { IMapOptions, MapOptions } from "./MapOptions";
-import { RefObject, useRef, useState } from "react";
+"use client";
+
+import ZoomableMap from "./ZoomableMap";
+import { IMapOptions, MapOption, MapOptions } from "./MapOptions";
+import { useRef, useState } from "react";
 import { IPlanet } from "./PlanetMap";
 import { ISpacelane } from "./SpacelaneMap";
 import styles from "./map.module.css";
@@ -46,6 +48,7 @@ export default function Map(props: IMapProps) {
     setShowAllPlanets,
     showAllSpacelanes,
     setShowAllSpacelanes,
+    props.mapOptions?.customOptions || [],
   );
 
   const mapOptionsProps: IMapOptions = {};
@@ -76,8 +79,9 @@ function createMapOptions(
   setShowAllPlanets: (value: boolean) => void,
   showAllSpacelanes: boolean,
   setShowAllSpacelanes: (value: boolean) => void,
+  clientMapOptions: MapOption[]
 ) {
-  return [
+  const defaultOptions: MapOption[] =  [
     createSingleMapOption(
       hidePlanetLabels,
       setHidePlanetLabels,
@@ -103,6 +107,8 @@ function createMapOptions(
       "checkbox",
     ),
   ];
+
+  return defaultOptions.concat(clientMapOptions);
 }
 
 function createSingleMapOption<T>(
