@@ -79,9 +79,9 @@ function createMapOptions(
   setShowAllPlanets: (value: boolean) => void,
   showAllSpacelanes: boolean,
   setShowAllSpacelanes: (value: boolean) => void,
-  clientMapOptions: MapOption[]
+  clientMapOptions: MapOption[],
 ) {
-  const defaultOptions: MapOption[] =  [
+  const defaultOptions: MapOption[] = [
     createSingleMapOption(
       hidePlanetLabels,
       setHidePlanetLabels,

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { getDomProps, IComponentProps } from "./IComponent";
 import styles from "./expandable.module.css";
-import {DoubleArrowDown, DoubleArrowUp} from "./icons";
+import { DoubleArrowDown, DoubleArrowUp } from "./icons";
 
 interface IExpandableProps extends IComponentProps {
   title?: string;

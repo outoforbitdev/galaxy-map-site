@@ -53,10 +53,16 @@ export function Icon(props: IIconInternalProps) {
         props.externalProps.clickable ? styles.clickable : undefined,
       )}
     >
-      {inverted  ? (
+      {inverted ? (
         <defs>
           <mask id="iconMask">
-            <rect x={0} y={0} height={props.viewBoxSize} width={props.viewBoxSize} fill="white" />
+            <rect
+              x={0}
+              y={0}
+              height={props.viewBoxSize}
+              width={props.viewBoxSize}
+              fill="white"
+            />
             <g stroke="black" fill="black">
               {props.children}
             </g>

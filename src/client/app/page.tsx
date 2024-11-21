@@ -24,12 +24,14 @@ export default function Map() {
 
   if (!planets || !spacelanes) return <div></div>;
 
-  const customOptions = [{
-    currentValue: exampleCustomOption,
-    setValue: setExampleCustomOption,
-    label: "example custom option",
-    inputType: "checkbox",
-  }]
+  const customOptions = [
+    {
+      currentValue: exampleCustomOption,
+      setValue: setExampleCustomOption,
+      label: "example custom option",
+      inputType: "checkbox",
+    },
+  ];
 
   return (
     <Fragment>

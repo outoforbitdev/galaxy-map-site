@@ -1,2 +1,2 @@
-export {default} from "./GalaxyMap";
-export {MapColor} from "./Colors";
+export { default } from "./GalaxyMap";
+export { MapColor } from "./Colors";
