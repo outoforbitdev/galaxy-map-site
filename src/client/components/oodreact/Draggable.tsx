@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CSSProperties,
   RefObject,
@@ -7,10 +9,10 @@ import {
   PointerEventHandler,
   useEffect,
 } from "react";
-import { IComponent } from "./IComponent";
+import { getDomProps, IComponentProps } from "./IComponent";
 import styles from "./draggable.module.css";
 
-interface IDraggableProps extends IComponent {
+interface IDraggableProps extends IComponentProps {
   initialPosition: IPosition;
 }
 
@@ -21,7 +23,7 @@ export interface IPosition {
 
 const defaultPosition: IPosition = { x: 0, y: 0 };
 
-export default function Draggable(props: IDraggableProps) {
+export function Draggable(props: IDraggableProps) {
   const draggableRef = useRef<HTMLDivElement>(null);
   const staticRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(props.initialPosition);
@@ -97,8 +99,8 @@ export default function Draggable(props: IDraggableProps) {
   return (
     <div
       ref={staticRef}
-      className={styles.draggable}
       onPointerDown={onPointerDown}
+      {...getDomProps(props, styles.draggable)}
     >
       <div
         ref={draggableRef}

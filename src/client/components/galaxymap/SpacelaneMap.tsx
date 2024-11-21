@@ -1,5 +1,5 @@
 import { colorToCss, MapColor } from "./Colors";
-import { zoomLevelToModifier } from "./GalaxyMap";
+import { zoomLevelToModifier } from "./ZoomableMap";
 
 export interface ISpacelane {
   name: string;
@@ -15,6 +15,8 @@ interface ISpacelaneMapProps {
   spacelane: ISpacelane;
   centerX: number;
   centerY: number;
+  forceShow?: boolean;
+  hideLabel?: boolean;
   zoomLevel: number;
 }
 
@@ -29,7 +31,7 @@ export default function SpacelaneMap(props: ISpacelaneMapProps) {
   const color = colorToCss(spacelane.color);
   const inFocus = spacelane.focusLevel >= zoomModifier;
   const strokeWidth = inFocus ? 2 : 1;
-  if (zoomModifier - spacelane.focusLevel > 5) return;
+  if (zoomModifier - spacelane.focusLevel > 5 && !props.forceShow) return;
 
   const textRotation =
     (Math.atan((yTwo - yOne) / (xTwo - xOne)) * 180) / Math.PI;
@@ -38,13 +40,18 @@ export default function SpacelaneMap(props: ISpacelaneMapProps) {
   return (
     <g fill={color} stroke={color}>
       <line x1={xOne} y1={yOne} x2={xTwo} y2={yTwo} strokeWidth={strokeWidth} />
-      {inFocus && checkIfSpaceForText(xOne, xTwo, yOne, yTwo, name) ? (
+      {inFocus &&
+      checkIfSpaceForText(xOne, xTwo, yOne, yTwo, name) &&
+      !props.hideLabel ? (
         <text
           x={textPosition.x}
           y={textPosition.y}
           transform={`rotate(${textRotation} ${textPosition.x} ${textPosition.y})`}
           textAnchor="middle"
           dominantBaseline="middle"
+          fontWeight={"bold"}
+          strokeWidth={"1px"}
+          stroke="var(--neutral-background)"
         >
           {name}
         </text>

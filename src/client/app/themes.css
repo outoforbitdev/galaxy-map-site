@@ -2,6 +2,7 @@
   /* https://colordesigner.io/gradient-generator */
   /* https://webaim.org/resources/contrastchecker/ */
   --neutral-background: var(--gray-200);
+  --neutral-background-two: var(--gray-100);
   --neutral-text: var(--gray-900);
   --neutral-text-two: var(--gray-800);
   --primary-text: var(--blue-600);
@@ -20,8 +21,12 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --neutral-background: var(--gray-900);
+    --neutral-background-two: var(--gray-800);
     --neutral-text: var(--gray-400);
     --neutral-text-two: var(--gray-500);
+    --primary-text: var(--blue-200);
+    --primary-accent: var(--blue-800);
+
     /* --color-gray: var(--gray-600); */
   }
 }
