@@ -1,5 +1,4 @@
 import { colorToCss, MapColor } from "./Colors";
-import styles from "./map.module.css";
 import { zoomLevelToModifier } from "./ZoomableMap";
 
 export interface ISpacelane {
